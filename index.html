@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#080808" />
+  <meta name="description" content="Luxury NFC Restaurant Experience" />
+  <title id="page-title">ÉCLAT — Luxury Experience</title>
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Premium fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ░░░░░ DEMO BADGE ░░░░░ -->
+<div class="demo-badge" id="demo-badge">
+  <span class="demo-dot"></span>DEMO PRESENTATION
+</div>
+
+<!-- ░░░░░ DEMO MODAL ░░░░░ -->
+<div class="demo-modal-overlay" id="demo-modal-overlay">
+  <div class="demo-modal">
+    <div class="demo-modal-icon">💎</div>
+    <h3>Fonctionnalité Active</h3>
+    <p>Cette page est une démonstration. Tous les boutons et liens seront entièrement configurés pour votre établissement.</p>
+    <button class="demo-modal-close" onclick="closeDemoModal()">Fermer</button>
+  </div>
+</div>
+
+<!-- ░░░░░ NAVIGATION ░░░░░ -->
+<nav class="nav" id="main-nav">
+  <div class="nav-logo" id="nav-logo-text">ÉCLAT</div>
+  <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-drawer" id="nav-drawer">
+    <button class="nav-drawer-close" id="nav-drawer-close">✕</button>
+    <nav class="nav-links">
+      <a href="#about"       class="nav-link demo-trigger">L'Établissement</a>
+      <a href="#menus"       class="nav-link demo-trigger">Menus</a>
+      <a href="#drinks"      class="nav-link demo-trigger">Boissons</a>
+      <a href="#djs"         class="nav-link demo-trigger">DJs</a>
+      <a href="#events"      class="nav-link demo-trigger">Événements</a>
+      <a href="#reservation" class="nav-link demo-trigger">Réservation</a>
+    </nav>
+  </div>
+</nav>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 1 — HERO                              -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-particles" id="hero-particles"></div>
+    <div class="hero-gradient"></div>
+    <div class="hero-vignette"></div>
+  </div>
+
+  <!-- Bottle lamp visual -->
+  <div class="hero-lamp-visual">
+    <div class="lamp-glow"></div>
+    <div class="lamp-bottle">
+      <div class="lamp-bottle-body">
+        <div class="lamp-shine"></div>
+        <div class="lamp-label">DOM PÉRIGNON</div>
+        <div class="lamp-year">2015</div>
+      </div>
+      <div class="lamp-light-top">
+        <div class="lamp-light-rays">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="lamp-nfc-ring">
+        <div class="lamp-nfc-pulse"></div>
+        <span class="lamp-nfc-icon">NFC</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-content" id="hero-content">
+    <div class="hero-eyebrow reveal-up">
+      <span class="hero-dot"></span>
+      <span id="hero-eyebrow-text">Tap Into The Experience</span>
+    </div>
+    <h1 class="hero-title reveal-up delay-1" id="hero-brand-name">ÉCLAT</h1>
+    <p class="hero-tagline reveal-up delay-2" id="hero-tagline">Where Prestige Meets the Night</p>
+    <div class="hero-divider reveal-up delay-3"></div>
+    <p class="hero-sub reveal-up delay-4" id="hero-sub-tagline">Tap into the experience</p>
+    <div class="hero-cta-group reveal-up delay-5">
+      <a href="#reservation" class="btn btn-primary demo-trigger">
+        <span>Réserver une table VIP</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#about" class="btn btn-ghost demo-trigger">Découvrir</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 2 — ABOUT / VENUE INFO                -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-label reveal-up">L'Établissement</div>
+    <h2 class="section-title reveal-up" id="venue-name">Éclat Lounge &amp; Restaurant</h2>
+    <p class="section-desc reveal-up" id="venue-description">
+      An intimate world where gastronomy, art, and music converge.
+    </p>
+
+    <div class="info-grid">
+      <!-- Address card -->
+      <div class="info-card glass reveal-up">
+        <div class="info-card-icon">📍</div>
+        <div class="info-card-content">
+          <div class="info-card-label">Adresse</div>
+          <div class="info-card-value" id="venue-address">12 Boulevard de la Croisette, Monaco</div>
+        </div>
+      </div>
+      <!-- Hours card -->
+      <div class="info-card glass reveal-up delay-1">
+        <div class="info-card-icon">🕘</div>
+        <div class="info-card-content">
+          <div class="info-card-label">Horaires</div>
+          <ul class="hours-list" id="venue-hours"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact buttons -->
+    <div class="contact-buttons reveal-up">
+      <a class="contact-btn contact-btn--call demo-trigger" id="contact-call">
+        <span class="contact-btn-icon">📞</span>
+        <span>Appeler</span>
+      </a>
+      <a class="contact-btn contact-btn--whatsapp demo-trigger" id="contact-whatsapp">
+        <span class="contact-btn-icon">💬</span>
+        <span>WhatsApp</span>
+      </a>
+      <a class="contact-btn contact-btn--maps demo-trigger" id="contact-maps">
+        <span class="contact-btn-icon">🗺️</span>
+        <span>Itinéraire</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 3 — INSTAGRAM                         -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="section section--dark" id="instagram">
+  <div class="container">
+    <div class="section-label reveal-up">Réseaux Sociaux</div>
+    <h2 class="section-title reveal-up">Instagram</h2>
+
+    <div class="insta-header reveal-up">
+      <div class="insta-profile">
+        <div class="insta-avatar">✨</div>
+        <div>
+          <div class="insta-handle" id="insta-handle">@eclat.lounge</div>
+          <div class="insta-followers">Suivez-nous pour les dernières actualités</div>
+        </div>
+      </div>
+      <a class="btn btn-outline demo-trigger" id="insta-follow-btn">
+        <span>Suivre</span>
+      </a>
+    </div>
+
+    <div class="insta-grid" id="insta-grid">
+      <!-- Populated by JS -->
+    </div>
+
+    <div class="text-center reveal-up" style="margin-top:2rem">
+      <a class="btn btn-ghost demo-trigger">Voir tous les posts →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 4 — GOOGLE REVIEWS                    -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="section-label reveal-up">Avis Clients</div>
+    <h2 class="section-title reveal-up">Ce que disent nos hôtes</h2>
+
+    <div class="rating-hero reveal-up">
+      <div class="rating-score" id="rating-score">4.9</div>
+      <div class="rating-info">
+        <div class="rating-stars" id="rating-stars">★★★★★</div>
+        <div class="rating-count" id="rating-count">312 avis Google</div>
+        <a class="btn btn-outline btn--sm demo-trigger" style="margin-top:.75rem" id="leave-review-btn">
+          Laisser un avis
+        </a>
+      </div>
+    </div>
+
+    <!-- Reviews carousel -->
+    <div class="reviews-carousel-wrap">
+      <div class="reviews-carousel" id="reviews-carousel">
+        <!-- Populated by JS -->
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="reviews-prev">‹</button>
+        <div class="carousel-dots" id="reviews-dots"></div>
+        <button class="carousel-btn" id="reviews-next">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 5 — SPOTIFY                           -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="section section--dark" id="music">
+  <div class="container">
+    <div class="section-label reveal-up">Ambiance Sonore</div>
+    <h2 class="section-title reveal-up">Nos Playlists</h2>
+    <p class="section-desc reveal-up">L'atmosphère parfaite pour chaque moment de votre soirée.</p>
+
+    <!-- Playlist tabs -->
+    <div class="playlist-tabs reveal-up" id="playlist-tabs">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Spotify embed -->
+    <div class="spotify-embed-wrap reveal-up">
+      <iframe
+        id="spotify-frame"
+        class="spotify-frame"
+        src="https://open.spotify.com/embed/playlist/37i9dQZF1DX2TRYkJECvfC"
+        width="100%"
+        height="380"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 6 — DJ LINEUP                         -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="section" id="djs">
+  <div class="container">
+    <div class="section-label reveal-up">Cette Semaine</div>
+    <h2 class="section-title reveal-up">DJ Lineup</h2>
+
+    <!-- Featured DJ -->
+    <div class="dj-featured glass reveal-up" id="dj-featured-card">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- DJ grid -->
+    <div class="dj-grid" id="dj-grid">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 7 — RESERVATION                       -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="section section--gold" id="reservation">
+  <div class="container">
+    <div class="section-label reveal-up" style="color: rgba(8,8,8,.6)">Réservation Exclusive</div>
+    <h2 class="section-title reveal-up" style="color:#080808">Réservez Votre Table VIP</h2>
+    <p class="section-desc reveal-up" style="color:rgba(8,8,8,.7)" id="reservation-desc">
+      Notre équipe conciergerie est disponible 7j/7 pour créer votre soirée parfaite.
+    </p>
+
+    <div class="reservation-cards reveal-up">
+      <a class="reservation-card demo-trigger" id="res-whatsapp">
+        <div class="reservation-card-icon">💬</div>
+        <div class="reservation-card-title">WhatsApp</div>
+        <div class="reservation-card-sub">Réponse rapide</div>
+      </a>
+      <a class="reservation-card demo-trigger" id="res-call">
+        <div class="reservation-card-icon">📞</div>
+        <div class="reservation-card-title">Appeler</div>
+        <div class="reservation-card-sub" id="res-phone-display">+377 99 00 00 00</div>
+      </a>
+      <a class="reservation-card demo-trigger" id="res-email">
+        <div class="reservation-card-icon">✉️</div>
+        <div class="reservation-card-title">Email</div>
+        <div class="reservation-card-sub" id="res-email-display">vip@eclat-lounge.com</div>
+      </a>
+    </div>
+
+    <!-- Optional form -->
+    <div class="reservation-form-wrap reveal-up">
+      <h3 class="reservation-form-title">Formulaire de Réservation</h3>
+      <form class="reservation-form" id="reservation-form" onsubmit="handleFormSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nom complet</label>
+            <input type="text" placeholder="Alexandre Dupont" required />
+          </div>
+          <div class="form-group">
+            <label>Téléphone</label>
+            <input type="tel" placeholder="+33 6 00 00 00 00" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date souhaitée</label>
+            <input type="date" required />
+          </div>
+          <div class="form-group">
+            <label>Nombre de personnes</label>
+            <select>
+              <option>2 personnes</option>
+              <option>3-4 personnes</option>
+              <option>5-6 personnes</option>
+              <option>7-10 personnes</option>
+              <option>Événement privé (10+)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Message (optionnel)</label>
+          <textarea placeholder="Occasion spéciale, demandes particulières…" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-dark btn--full">
+          Envoyer la demande de réservation
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 8 — FOOD MENU                         -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="section section--dark" id="menus">
+  <div class="container">
+    <div class="section-label reveal-up">Gastronomie</div>
+    <h2 class="section-title reveal-up">Notre Carte</h2>
+    <p class="section-desc reveal-up">Une cuisine d'auteur aux influences méditerranéennes et asiatiques.</p>
+
+    <div class="menu-accordion" id="food-menu-accordion">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 9 — DRINKS MENU                       -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="section" id="drinks">
+  <div class="container">
+    <div class="section-label reveal-up">Bar & Cave</div>
+    <h2 class="section-title reveal-up">Carte des Boissons</h2>
+    <p class="section-desc reveal-up">Une sélection de champagnes, cocktails signature et spiritueux d'exception.</p>
+
+    <div class="menu-accordion" id="drinks-menu-accordion">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 10 — EVENTS                           -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="section section--dark" id="events">
+  <div class="container">
+    <div class="section-label reveal-up">Agenda</div>
+    <h2 class="section-title reveal-up">Prochains Événements</h2>
+    <p class="section-desc reveal-up">Des soirées d'exception, réservées à une clientèle d'élite.</p>
+
+    <div class="events-grid" id="events-grid">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 11 — NFC EXPERIENCE                   -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="section nfc-section" id="nfc">
+  <div class="nfc-bg-glow"></div>
+  <div class="container">
+    <div class="section-label reveal-up" style="color:var(--gold-light)">Technologie</div>
+    <h2 class="section-title reveal-up" id="nfc-headline">The Lumière Experience</h2>
+    <p class="section-desc reveal-up" id="nfc-description">
+      Each bottle you see is a unique piece of art — a recycled Dom Pérignon transformed into a luxury lamp.
+    </p>
+
+    <!-- NFC visual -->
+    <div class="nfc-visual reveal-up">
+      <div class="nfc-phone">
+        <div class="nfc-phone-screen">
+          <div class="nfc-phone-icon">📲</div>
+          <div class="nfc-phone-text">Experience Unlocked</div>
+        </div>
+        <div class="nfc-wave nfc-wave-1"></div>
+        <div class="nfc-wave nfc-wave-2"></div>
+        <div class="nfc-wave nfc-wave-3"></div>
+      </div>
+      <div class="nfc-connector">
+        <div class="nfc-connector-line"></div>
+        <div class="nfc-tag-chip">
+          <span>NFC</span>
+        </div>
+      </div>
+      <div class="nfc-bottle-mini">
+        <div class="nfc-bottle-body">🍾</div>
+        <div class="nfc-bottle-glow"></div>
+      </div>
+    </div>
+
+    <div class="nfc-features-grid" id="nfc-features">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- SECTION 12 — FOOTER                           -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<footer class="footer" id="footer">
+  <div class="footer-top">
+    <div class="footer-logo" id="footer-logo">ÉCLAT</div>
+    <p class="footer-tagline" id="footer-tagline">Crafted with prestige. Experienced with a tap.</p>
+
+    <div class="footer-social" id="footer-social">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <div class="footer-divider"></div>
+
+  <div class="footer-links">
+    <a href="#about"       class="footer-link demo-trigger">L'Établissement</a>
+    <a href="#menus"       class="footer-link demo-trigger">Menus</a>
+    <a href="#events"      class="footer-link demo-trigger">Événements</a>
+    <a href="#reservation" class="footer-link demo-trigger">Réservation</a>
+    <a href="#nfc"         class="footer-link demo-trigger">Expérience NFC</a>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copyright" id="footer-copyright">© 2026 Éclat Lounge. All rights reserved.</p>
+    <p class="footer-powered" id="footer-powered">Powered by Lumière NFC Experience</p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="data/config.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
