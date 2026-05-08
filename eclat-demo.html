@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<meta name="theme-color" content="#080808"/>
+<title>ÉCLAT — Luxury Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   ÉCLAT · LUXURY NFC EXPERIENCE · Single File Edition
+   ============================================================ */
+:root{
+  --bg:#080808;--bg2:#0f0f0f;--bg3:#141414;
+  --card:rgba(255,255,255,.03);--card-h:rgba(255,255,255,.06);
+  --gold:#C9A96E;--gold-l:#E8C97A;--gold-d:rgba(201,169,110,.15);
+  --gold-b:rgba(201,169,110,.22);
+  --w:#F5F0E8;--wd:rgba(245,240,232,.6);--wf:rgba(245,240,232,.07);
+  --br:rgba(255,255,255,.07);--brg:rgba(201,169,110,.18);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --disp:'Montserrat','Inter',sans-serif;
+  --r:16px;--rs:10px;--rl:24px;
+  --sh:0 4px 30px rgba(0,0,0,.6);
+  --sg:0 0 40px rgba(201,169,110,.12);
+  --tr:.35s cubic-bezier(.25,.46,.45,.94);
+  --trf:.2s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--w);font-family:var(--sans);font-weight:300;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto;display:block}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+select,input,textarea{font-family:var(--sans);background:transparent;color:var(--w)}
+ul{list-style:none}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+::selection{background:var(--gold-d);color:var(--gold-l)}
+
+/* LAYOUT */
+.container{width:100%;max-width:780px;margin:0 auto;padding:0 1.25rem}
+.section{padding:5rem 0;position:relative}
+.section--dark{background:var(--bg2)}
+.section--gold{background:var(--gold);color:var(--bg)}
+.section-label{font-family:var(--disp);font-size:.65rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.section-title{font-family:var(--serif);font-size:clamp(2rem,7vw,3.2rem);font-weight:400;line-height:1.15;margin-bottom:1.25rem;letter-spacing:-.01em}
+.section-desc{font-size:.95rem;color:var(--wd);max-width:520px;line-height:1.75;margin-bottom:2.5rem}
+.text-center{text-align:center}
+
+/* GLASS */
+.glass{background:var(--card);border:1px solid var(--br);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:var(--r)}
+.glass:hover{background:var(--card-h);border-color:var(--gold-b);box-shadow:var(--sg);transform:translateY(-2px);transition:var(--tr)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.75rem;border-radius:100px;font-family:var(--disp);font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:var(--tr);white-space:nowrap;cursor:pointer}
+.btn-primary{background:var(--gold);color:var(--bg)}
+.btn-primary:hover{background:var(--gold-l);box-shadow:0 0 30px rgba(201,169,110,.4);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--wd);border:1px solid var(--br)}
+.btn-ghost:hover{color:var(--w);border-color:var(--gold-b)}
+.btn-outline{background:transparent;color:var(--gold);border:1px solid var(--gold-b)}
+.btn-outline:hover{background:var(--gold-d)}
+.btn-dark{background:var(--bg);color:var(--gold);border:1px solid var(--brg)}
+.btn--sm{padding:.6rem 1.25rem;font-size:.75rem}
+.btn--full{width:100%;justify-content:center}
+
+/* LOADER */
+.loader{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:opacity .7s ease,visibility .7s ease}
+.loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-logo{font-family:var(--serif);font-size:2.5rem;font-weight:300;letter-spacing:.4em;color:var(--gold);animation:loaderFade 1.5s ease-in-out infinite}
+.loader-line{width:80px;height:1px;background:var(--br);position:relative;overflow:hidden;border-radius:1px}
+.loader-line::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--gold);animation:loaderSlide 1.2s ease-in-out infinite}
+@keyframes loaderFade{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes loaderSlide{0%{left:-100%}100%{left:100%}}
+
+/* DEMO BADGE */
+.demo-badge{position:fixed;top:1rem;right:1rem;z-index:9999;background:rgba(8,8,8,.9);border:1px solid var(--gold-b);backdrop-filter:blur(12px);color:var(--gold);font-family:var(--disp);font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.4rem .9rem;border-radius:100px;display:flex;align-items:center;gap:.5rem}
+.demo-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulseDot 2s infinite}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+
+/* DEMO MODAL */
+.demo-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.demo-overlay.active{opacity:1;pointer-events:all}
+.demo-modal{background:var(--bg3);border:1px solid var(--gold-b);border-radius:var(--rl);padding:2.5rem 2rem;max-width:360px;width:100%;text-align:center;transform:translateY(20px) scale(.95);transition:transform .3s ease}
+.demo-overlay.active .demo-modal{transform:translateY(0) scale(1)}
+.demo-modal-icon{font-size:2.5rem;margin-bottom:1rem}
+.demo-modal h3{font-family:var(--serif);font-size:1.5rem;font-weight:400;margin-bottom:.75rem}
+.demo-modal p{color:var(--wd);font-size:.875rem;line-height:1.7;margin-bottom:1.5rem}
+.demo-close{background:var(--gold);color:var(--bg);border:none;border-radius:100px;padding:.75rem 2rem;font-family:var(--disp);font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:var(--tr)}
+.demo-close:hover{background:var(--gold-l)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .4s}
+.nav.scrolled{background:rgba(8,8,8,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:.85rem 1.5rem;border-bottom:1px solid var(--br)}
+.nav-logo{font-family:var(--serif);font-size:1.5rem;font-weight:400;letter-spacing:.2em;color:var(--gold)}
+.nav-menu-btn{display:flex;flex-direction:column;gap:5px;padding:.5rem}
+.nav-menu-btn span{display:block;width:22px;height:1.5px;background:var(--w);transition:var(--tr)}
+.nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,85vw);background:var(--bg3);border-left:1px solid var(--br);backdrop-filter:blur(30px);z-index:2000;padding:5rem 2rem 2rem;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.nav-drawer.open{transform:translateX(0)}
+.nav-drawer-close{position:absolute;top:1.5rem;right:1.5rem;color:var(--wd);font-size:1.25rem}
+.nav-drawer-close:hover{color:var(--gold)}
+.nav-links{display:flex;flex-direction:column;gap:.25rem}
+.nav-link{font-family:var(--disp);font-size:.85rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--wd);padding:1rem 0;border-bottom:1px solid var(--br);transition:color .2s;display:block}
+.nav-link:last-child{border-bottom:none}
+.nav-link:hover{color:var(--gold)}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:5rem 1.25rem 6rem}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-gradient{position:absolute;inset:0;background:radial-gradient(ellipse 120% 80% at 50% 110%,rgba(201,169,110,.1) 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 80% 20%,rgba(201,169,110,.05) 0%,transparent 50%),linear-gradient(180deg,rgba(8,8,8,0) 0%,rgba(8,8,8,.4) 50%,rgba(8,8,8,.9) 100%)}
+.hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 50%,transparent 40%,rgba(8,8,8,.5) 100%)}
+#particles-canvas{position:absolute;inset:0;pointer-events:none}
+
+/* LAMP */
+.hero-lamp-wrap{position:relative;z-index:1;margin-bottom:2.5rem;display:flex;justify-content:center}
+.lamp-glow{position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(201,169,110,.22) 0%,transparent 70%);animation:lampGlow 3s ease-in-out infinite;pointer-events:none}
+@keyframes lampGlow{0%,100%{opacity:.7;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.15)}}
+.lamp-bottle{position:relative;width:70px;margin:0 auto}
+.lamp-bottle-body{width:70px;height:140px;background:linear-gradient(160deg,rgba(20,20,20,1) 0%,rgba(8,60,8,.9) 30%,rgba(10,70,10,.85) 60%,rgba(15,80,15,.9) 80%,rgba(20,20,20,1) 100%);border-radius:12px 12px 8px 8px;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.08)}
+.lamp-shine{position:absolute;top:0;left:8px;width:16px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);border-radius:50%}
+.lamp-lbl{position:absolute;bottom:42px;left:0;right:0;text-align:center;font-family:var(--disp);font-size:.42rem;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
+.lamp-yr{position:absolute;bottom:28px;left:0;right:0;text-align:center;font-family:var(--serif);font-size:.55rem;color:rgba(201,169,110,.6)}
+.lamp-light{position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:50px;height:30px;background:radial-gradient(ellipse at 50% 100%,rgba(255,240,180,.9) 0%,rgba(255,200,80,.4) 40%,transparent 70%);filter:blur(2px)}
+.lamp-rays{position:absolute;top:-65px;left:50%;transform:translateX(-50%)}
+.lamp-rays span{position:absolute;bottom:0;left:0;width:1px;height:65px;background:linear-gradient(to top,rgba(255,230,100,.5),transparent);transform-origin:bottom center;animation:rayFlicker 2s ease-in-out infinite}
+.lamp-rays span:nth-child(1){transform:rotate(-50deg);animation-delay:0s}
+.lamp-rays span:nth-child(2){transform:rotate(-30deg);animation-delay:.15s}
+.lamp-rays span:nth-child(3){transform:rotate(-10deg);animation-delay:.3s}
+.lamp-rays span:nth-child(4){transform:rotate(10deg);animation-delay:.1s}
+.lamp-rays span:nth-child(5){transform:rotate(30deg);animation-delay:.25s}
+.lamp-rays span:nth-child(6){transform:rotate(50deg);animation-delay:.4s}
+@keyframes rayFlicker{0%,100%{opacity:.5}50%{opacity:1}}
+.lamp-nfc{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:36px;height:36px;display:flex;align-items:center;justify-content:center}
+.lamp-nfc-ring{position:absolute;inset:0;border:1.5px solid var(--gold);border-radius:50%;animation:nfcPulse 2s ease-out infinite}
+@keyframes nfcPulse{0%{transform:scale(.8);opacity:1}100%{transform:scale(1.8);opacity:0}}
+.lamp-nfc-txt{font-family:var(--disp);font-size:.45rem;font-weight:700;letter-spacing:.05em;color:var(--gold);position:relative;z-index:1}
+
+/* HERO CONTENT */
+.hero-content{position:relative;z-index:2;text-align:center;max-width:500px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.65rem;font-family:var(--disp);font-size:.65rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
+.hero-dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.hero-title{font-family:var(--serif);font-size:clamp(4rem,18vw,7rem);font-weight:300;letter-spacing:.25em;line-height:1;color:var(--w);text-shadow:0 0 80px rgba(201,169,110,.15);margin-bottom:1rem}
+.hero-tagline{font-family:var(--serif);font-size:clamp(1rem,3.5vw,1.3rem);font-style:italic;color:var(--wd);letter-spacing:.02em;margin-bottom:1.5rem}
+.hero-divider{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 1.5rem}
+.hero-sub{font-family:var(--disp);font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:2.5rem}
+.hero-cta{display:flex;flex-direction:column;align-items:center;gap:.75rem}
+@media(min-width:400px){.hero-cta{flex-direction:row;justify-content:center}}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;z-index:2}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollHint 2s ease-in-out infinite}
+@keyframes scrollHint{0%{transform:scaleY(0);transform-origin:top;opacity:0}50%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1) translateY(10px);opacity:0}}
+.hero-scroll span{font-family:var(--disp);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--wd)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s!important}.d2{transition-delay:.2s!important}.d3{transition-delay:.3s!important}.d4{transition-delay:.4s!important}.d5{transition-delay:.5s!important}
+
+/* VENUE / INFO */
+.info-grid{display:grid;gap:1rem;margin-bottom:2rem}
+@media(min-width:560px){.info-grid{grid-template-columns:1fr 1fr}}
+.info-card{display:flex;align-items:flex-start;gap:1rem;padding:1.5rem;transition:var(--tr)}
+.info-icon{font-size:1.25rem;flex-shrink:0;margin-top:.1rem}
+.info-lbl{font-family:var(--disp);font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.info-val{font-size:.875rem;color:var(--w);line-height:1.5}
+.hours-list{display:flex;flex-direction:column;gap:.35rem}
+.hours-list li{display:flex;justify-content:space-between;gap:.75rem;font-size:.8rem}
+.hours-list .day{color:var(--wd)}.hours-list .time{color:var(--gold);font-weight:500}
+.contact-btns{display:flex;gap:.75rem;flex-wrap:wrap}
+.cta-btn{flex:1;min-width:100px;display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:1.25rem .75rem;border-radius:var(--r);font-family:var(--disp);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;transition:var(--tr);cursor:pointer}
+.cta-btn-icon{font-size:1.4rem}
+.cta-call{background:var(--card);border:1px solid var(--br);color:var(--w)}.cta-call:hover{border-color:var(--gold-b);background:var(--card-h)}
+.cta-wa{background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.2);color:#25d366}.cta-wa:hover{background:rgba(37,211,102,.15)}
+.cta-map{background:var(--card);border:1px solid var(--br);color:var(--w)}.cta-map:hover{border-color:var(--gold-b);background:var(--card-h)}
+
+/* INSTAGRAM */
+.ig-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.25rem 1.5rem;background:var(--card);border:1px solid var(--br);border-radius:var(--r);margin-bottom:1.5rem}
+.ig-profile{display:flex;align-items:center;gap:1rem}
+.ig-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold-d),rgba(201,169,110,.04));border:1.5px solid var(--gold-b);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+.ig-handle{font-family:var(--disp);font-size:.875rem;font-weight:600;color:var(--w)}
+.ig-sub{font-size:.75rem;color:var(--wd);margin-top:.15rem}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;border-radius:var(--r);overflow:hidden}
+.ig-post{position:relative;aspect-ratio:1;overflow:hidden;cursor:pointer}
+.ig-post img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.ig-post-ov{position:absolute;inset:0;background:rgba(8,8,8,.6);opacity:0;transition:opacity .3s ease;display:flex;align-items:center;justify-content:center;padding:.5rem}
+.ig-post:hover img{transform:scale(1.05)}
+.ig-post:hover .ig-post-ov{opacity:1}
+.ig-cap{color:var(--w);font-size:.7rem;text-align:center;line-height:1.4}
+
+/* REVIEWS */
+.rating-hero{display:flex;align-items:center;gap:2rem;margin-bottom:2.5rem;padding:2rem;background:var(--card);border:1px solid var(--brg);border-radius:var(--rl)}
+.rating-num{font-family:var(--serif);font-size:4rem;font-weight:300;color:var(--gold);line-height:1;flex-shrink:0}
+.rating-stars{color:var(--gold);font-size:1.1rem;letter-spacing:.1em;margin-bottom:.25rem}
+.rating-ct{font-size:.8rem;color:var(--wd)}
+.carousel-wrap{overflow:hidden;position:relative}
+.carousel{display:flex;gap:1rem;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
+.review-card{flex-shrink:0;width:calc(100% - 2px);background:var(--card);border:1px solid var(--br);border-radius:var(--r);padding:1.75rem}
+.review-hd{display:flex;align-items:center;gap:.875rem;margin-bottom:1rem}
+.review-av{width:44px;height:44px;border-radius:50%;background:var(--gold-d);border:1px solid var(--gold-b);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:.75rem;font-weight:700;color:var(--gold);flex-shrink:0}
+.review-name{font-family:var(--disp);font-size:.85rem;font-weight:600;color:var(--w)}
+.review-stars{color:var(--gold);font-size:.8rem}
+.review-txt{font-size:.875rem;color:var(--wd);line-height:1.7;font-style:italic}
+.review-txt::before{content:'"'}.review-txt::after{content:'"'}
+.car-ctrl{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:1.25rem}
+.car-btn{width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--br);color:var(--w);font-size:1.25rem;display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+.car-btn:hover{border-color:var(--gold-b);color:var(--gold)}
+.car-dots{display:flex;gap:.4rem;align-items:center}
+.car-dot{width:6px;height:6px;border-radius:50%;background:var(--br);transition:var(--trf);cursor:pointer}
+.car-dot.on{background:var(--gold);width:18px;border-radius:3px}
+
+/* SPOTIFY */
+.pl-tabs{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.5rem;margin-bottom:1.5rem;scrollbar-width:none}
+.pl-tabs::-webkit-scrollbar{display:none}
+.pl-tab{flex-shrink:0;display:flex;align-items:center;gap:.5rem;padding:.65rem 1.25rem;border-radius:100px;font-family:var(--disp);font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--card);border:1px solid var(--br);color:var(--wd);cursor:pointer;transition:var(--trf)}
+.pl-tab:hover,.pl-tab.on{background:var(--gold-d);border-color:var(--gold-b);color:var(--gold)}
+.sp-wrap{border-radius:var(--r);overflow:hidden;border:1px solid var(--br)}
+
+/* DJS */
+.dj-feat{display:flex;gap:1.5rem;align-items:flex-start;padding:1.75rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.dj-badge{position:absolute;top:1.25rem;right:1.25rem;background:var(--gold);color:var(--bg);font-family:var(--disp);font-size:.55rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .75rem;border-radius:100px}
+.dj-feat-img,.dj-feat-ph{width:100px;height:100px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-b);flex-shrink:0}
+.dj-feat-ph{background:var(--gold-d);display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.dj-feat-name{font-family:var(--serif);font-size:1.75rem;font-weight:400;color:var(--w);letter-spacing:.08em;margin-bottom:.4rem}
+.dj-feat-bio{font-size:.85rem;color:var(--wd);line-height:1.65;margin-bottom:.75rem}
+.dj-meta{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.dj-set-badge{font-family:var(--disp);font-size:.65rem;font-weight:600;letter-spacing:.1em;color:var(--gold);background:var(--gold-d);padding:.3rem .75rem;border-radius:100px;border:1px solid var(--gold-b)}
+.dj-grid{display:grid;gap:1rem}
+@media(min-width:500px){.dj-grid{grid-template-columns:repeat(3,1fr)}}
+.dj-card{background:var(--card);border:1px solid var(--br);border-radius:var(--r);padding:1.5rem 1.25rem;text-align:center;transition:var(--tr)}
+.dj-card:hover{border-color:var(--gold-b);background:var(--card-h);transform:translateY(-3px);box-shadow:var(--sg)}
+.dj-cimg,.dj-cph{width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto .875rem;border:1.5px solid var(--brg)}
+.dj-cph{background:var(--gold-d);display:flex;align-items:center;justify-content:center;font-size:1.75rem}
+.dj-cname{font-family:var(--serif);font-size:1.1rem;font-weight:400;letter-spacing:.08em;margin-bottom:.25rem}
+.dj-cgenre{font-size:.7rem;color:var(--gold);font-weight:500;margin-bottom:.6rem}
+.dj-cset{font-size:.7rem;color:var(--wd);margin-bottom:.875rem;padding:.25rem 0;border-top:1px solid var(--br)}
+.dj-res{display:inline-block;font-family:var(--disp);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:var(--gold-d);padding:.2rem .6rem;border-radius:100px;margin-bottom:.6rem}
+
+/* RESERVATION */
+.res-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.5rem}
+.res-card{background:rgba(8,8,8,.15);border:1px solid rgba(8,8,8,.2);border-radius:var(--r);padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:.35rem}
+.res-card:hover{background:rgba(8,8,8,.25);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.res-icon{font-size:1.75rem}
+.res-title{font-family:var(--disp);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bg)}
+.res-sub{font-size:.7rem;color:rgba(8,8,8,.6)}
+.form-wrap{background:rgba(8,8,8,.1);border:1px solid rgba(8,8,8,.15);border-radius:var(--rl);padding:2rem 1.5rem}
+.form-title{font-family:var(--serif);font-size:1.35rem;font-weight:400;color:var(--bg);margin-bottom:1.5rem}
+.form-row{display:grid;gap:1rem;margin-bottom:1rem}
+@media(min-width:500px){.form-row{grid-template-columns:1fr 1fr}}
+.form-g{display:flex;flex-direction:column;gap:.4rem}
+.form-g label{font-family:var(--disp);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(8,8,8,.6)}
+.form-g input,.form-g select,.form-g textarea{background:rgba(255,255,255,.4);border:1.5px solid rgba(8,8,8,.15);border-radius:var(--rs);padding:.75rem 1rem;font-size:.875rem;color:var(--bg);outline:none;transition:border-color .2s;-webkit-appearance:none}
+.form-g input:focus,.form-g select:focus,.form-g textarea:focus{border-color:rgba(8,8,8,.4)}
+.form-g input::placeholder,.form-g textarea::placeholder{color:rgba(8,8,8,.35)}
+.form-g textarea{resize:vertical}
+
+/* MENU ACCORDION */
+.acc{display:flex;flex-direction:column;gap:.75rem}
+.acc-cat{border:1px solid var(--br);border-radius:var(--r);overflow:hidden;transition:border-color .2s}
+.acc-cat.open{border-color:var(--brg)}
+.acc-hd{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;cursor:pointer;background:var(--card);transition:background .2s;user-select:none}
+.acc-hd:hover{background:var(--card-h)}
+.acc-left{display:flex;align-items:center;gap:.875rem}
+.acc-ico{font-size:1.2rem}
+.acc-name{font-family:var(--serif);font-size:1.1rem;font-weight:400;letter-spacing:.02em}
+.acc-ct{font-size:.7rem;color:var(--wd);margin-top:.1rem}
+.acc-arrow{color:var(--gold);font-size:1rem;transition:transform .3s ease}
+.acc-cat.open .acc-arrow{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+.acc-cat.open .acc-body{max-height:2000px}
+.acc-items{border-top:1px solid var(--br);padding:.75rem 1.5rem;display:flex;flex-direction:column}
+.mi{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--wf)}
+.mi:last-child{border-bottom:none}
+.mi-info{flex:1}
+.mi-name{font-family:var(--serif);font-size:.975rem;font-weight:400;color:var(--w);margin-bottom:.2rem}
+.mi-desc{font-size:.775rem;color:var(--wd);line-height:1.5}
+.mi-price{font-family:var(--disp);font-size:.875rem;font-weight:600;color:var(--gold);white-space:nowrap;flex-shrink:0}
+
+/* EVENTS */
+.ev-grid{display:flex;flex-direction:column;gap:1.25rem}
+.ev-card{background:var(--card);border:1px solid var(--br);border-radius:var(--rl);overflow:hidden;transition:var(--tr);display:grid}
+.ev-card:hover{border-color:var(--brg);transform:translateY(-2px);box-shadow:var(--sg)}
+@media(min-width:500px){.ev-card{grid-template-columns:180px 1fr}}
+.ev-img{aspect-ratio:16/9;overflow:hidden}
+@media(min-width:500px){.ev-img{aspect-ratio:auto;min-height:160px}}
+.ev-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.ev-card:hover .ev-img img{transform:scale(1.04)}
+.ev-body{padding:1.5rem}
+.ev-tag{display:inline-block;font-family:var(--disp);font-size:.55rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);background:var(--gold-d);border:1px solid var(--gold-b);padding:.25rem .75rem;border-radius:100px;margin-bottom:.75rem}
+.ev-title{font-family:var(--serif);font-size:1.5rem;font-weight:400;letter-spacing:.04em;margin-bottom:.2rem}
+.ev-sub{font-size:.8rem;color:var(--gold);margin-bottom:.75rem;font-style:italic}
+.ev-desc{font-size:.825rem;color:var(--wd);line-height:1.65;margin-bottom:1rem}
+.ev-meta{display:flex;gap:1rem;flex-wrap:wrap}
+.ev-mi{display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--wd)}
+.cd{display:flex;gap:.5rem;margin-top:1rem}
+.cd-u{background:var(--bg3);border:1px solid var(--br);border-radius:var(--rs);padding:.5rem .75rem;text-align:center;min-width:52px}
+.cd-n{font-family:var(--disp);font-size:1.1rem;font-weight:700;color:var(--gold);line-height:1;display:block}
+.cd-l{font-size:.5rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--wd);display:block;margin-top:.2rem}
+
+/* NFC SECTION */
+.nfc-s{background:var(--bg3);position:relative;overflow:hidden}
+.nfc-glow{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(ellipse,rgba(201,169,110,.06) 0%,transparent 70%);pointer-events:none}
+.nfc-vis{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin:2.5rem 0;flex-wrap:wrap}
+.nfc-phone{position:relative;width:100px;background:var(--bg3);border:1.5px solid var(--gold-b);border-radius:18px;padding:1.5rem .75rem;text-align:center}
+.nfc-screen{position:relative;z-index:1}
+.nfc-pi{font-size:1.5rem;margin-bottom:.3rem}
+.nfc-pt{font-family:var(--disp);font-size:.5rem;font-weight:700;letter-spacing:.05em;color:var(--gold);text-transform:uppercase}
+.nfc-wave{position:absolute;border-radius:50%;border:1px solid var(--gold-b);animation:waveExp 2.5s ease-out infinite}
+.nfc-wave-1{inset:-12px;animation-delay:0s}
+.nfc-wave-2{inset:-24px;animation-delay:.6s}
+.nfc-wave-3{inset:-36px;animation-delay:1.2s}
+@keyframes waveExp{0%{opacity:.5;transform:scale(.9)}100%{opacity:0;transform:scale(1.1)}}
+.nfc-conn{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.nfc-line{width:2px;height:60px;background:linear-gradient(to bottom,var(--gold-b),var(--gold),var(--gold-b));animation:connPulse 2s ease-in-out infinite}
+@keyframes connPulse{0%,100%{opacity:.5}50%{opacity:1}}
+.nfc-chip{width:36px;height:22px;background:var(--gold-d);border:1.5px solid var(--gold);border-radius:4px;display:flex;align-items:center;justify-content:center}
+.nfc-chip span{font-family:var(--disp);font-size:.45rem;font-weight:800;letter-spacing:.05em;color:var(--gold)}
+.nfc-btl{font-size:4rem;filter:drop-shadow(0 0 20px rgba(201,169,110,.2))}
+.nfc-btl-glow{width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.15) 0%,transparent 70%);margin:-40px auto 0}
+.nfc-feats{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(min-width:600px){.nfc-feats{grid-template-columns:repeat(4,1fr)}}
+.nfc-feat{background:var(--card);border:1px solid var(--br);border-radius:var(--r);padding:1.5rem 1rem;text-align:center;transition:var(--tr)}
+.nfc-feat:hover{border-color:var(--brg);background:var(--card-h);transform:translateY(-2px)}
+.nfc-fi{font-size:1.75rem;margin-bottom:.75rem}
+.nfc-ft{font-family:var(--disp);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.nfc-fd{font-size:.75rem;color:var(--wd);line-height:1.55}
+
+/* FOOTER */
+.footer{background:#050505;border-top:1px solid var(--br);padding:3.5rem 0 2rem}
+.footer-top{text-align:center;padding:0 1.25rem 2.5rem;border-bottom:1px solid var(--br);margin-bottom:2rem}
+.footer-logo{font-family:var(--serif);font-size:2rem;font-weight:300;letter-spacing:.35em;color:var(--gold);margin-bottom:.75rem}
+.footer-tl{font-size:.8rem;color:var(--wd);font-style:italic;margin-bottom:1.5rem}
+.footer-soc{display:flex;justify-content:center;gap:.75rem}
+.footer-sb{display:flex;align-items:center;gap:.4rem;padding:.5rem 1.1rem;border-radius:100px;background:var(--card);border:1px solid var(--br);font-size:.75rem;color:var(--wd);transition:var(--trf);cursor:pointer}
+.footer-sb:hover{border-color:var(--gold-b);color:var(--gold)}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:.25rem .75rem;padding:0 1.25rem 2rem}
+.footer-link{font-family:var(--disp);font-size:.65rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--wd);transition:color .2s}
+.footer-link:hover{color:var(--gold)}
+.footer-bot{text-align:center;padding:1.5rem 1.25rem 0;border-top:1px solid var(--br)}
+.footer-cr{font-size:.75rem;color:rgba(245,240,232,.3);margin-bottom:.3rem}
+.footer-pw{font-size:.65rem;color:rgba(201,169,110,.4);letter-spacing:.05em}
+
+@media(min-width:768px){.section{padding:6.5rem 0}}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-logo">ÉCLAT</div>
+  <div class="loader-line"></div>
+</div>
+
+<!-- DEMO BADGE -->
+<div class="demo-badge"><span class="demo-dot"></span>DEMO PRÉSENTATION</div>
+
+<!-- DEMO MODAL -->
+<div class="demo-overlay" id="demoOverlay">
+  <div class="demo-modal">
+    <div class="demo-modal-icon">💎</div>
+    <h3>Fonctionnalité Active</h3>
+    <p>Cette page est une démonstration. Tous les boutons et liens seront entièrement configurés pour votre établissement.</p>
+    <button class="demo-close" onclick="document.getElementById('demoOverlay').classList.remove('active')">Fermer</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">ÉCLAT</div>
+  <button class="nav-menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-drawer" id="drawer">
+    <button class="nav-drawer-close" id="drawerClose">✕</button>
+    <nav class="nav-links">
+      <a href="#about"       class="nav-link dt">L'Établissement</a>
+      <a href="#menus"       class="nav-link dt">Menus</a>
+      <a href="#drinks"      class="nav-link dt">Boissons</a>
+      <a href="#djs"         class="nav-link dt">DJs</a>
+      <a href="#events"      class="nav-link dt">Événements</a>
+      <a href="#reservation" class="nav-link dt">Réservation</a>
+    </nav>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <canvas id="particles-canvas"></canvas>
+    <div class="hero-gradient"></div>
+    <div class="hero-vignette"></div>
+  </div>
+  <div class="hero-lamp-wrap">
+    <div class="lamp-glow"></div>
+    <div class="lamp-bottle">
+      <div class="lamp-rays"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="lamp-light"></div>
+      <div class="lamp-bottle-body">
+        <div class="lamp-shine"></div>
+        <div class="lamp-lbl">DOM PÉRIGNON</div>
+        <div class="lamp-yr">2015</div>
+      </div>
+      <div class="lamp-nfc">
+        <div class="lamp-nfc-ring"></div>
+        <span class="lamp-nfc-txt">NFC</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow rv d1"><span class="hero-dot"></span>Tap Into The Experience</div>
+    <h1 class="hero-title rv d2">ÉCLAT</h1>
+    <p class="hero-tagline rv d3">Where Prestige Meets the Night</p>
+    <div class="hero-divider rv d4"></div>
+    <p class="hero-sub rv d4">Découvrez l'expérience</p>
+    <div class="hero-cta rv d5">
+      <a href="#reservation" class="btn btn-primary dt">
+        Réserver une table VIP
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#about" class="btn btn-ghost dt">Découvrir</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-label rv">L'Établissement</div>
+    <h2 class="section-title rv">Éclat Lounge &amp; Restaurant</h2>
+    <p class="section-desc rv">An intimate world where gastronomy, art, and music converge. Nestled in the heart of the Riviera, Éclat redefines luxury nightlife with curated experiences for the most discerning guests.</p>
+    <div class="info-grid">
+      <div class="info-card glass rv">
+        <div class="info-icon">📍</div>
+        <div><div class="info-lbl">Adresse</div><div class="info-val">12 Boulevard de la Croisette, Monaco</div></div>
+      </div>
+      <div class="info-card glass rv d1">
+        <div class="info-icon">🕘</div>
+        <div>
+          <div class="info-lbl">Horaires</div>
+          <ul class="hours-list">
+            <li><span class="day">Lundi – Jeudi</span><span class="time">19:00 – 02:00</span></li>
+            <li><span class="day">Vendredi – Samedi</span><span class="time">19:00 – 04:00</span></li>
+            <li><span class="day">Dimanche</span><span class="time">19:00 – 01:00</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="contact-btns rv">
+      <a class="cta-btn cta-call dt"><span class="cta-btn-icon">📞</span><span>Appeler</span></a>
+      <a class="cta-btn cta-wa dt"><span class="cta-btn-icon">💬</span><span>WhatsApp</span></a>
+      <a class="cta-btn cta-map dt"><span class="cta-btn-icon">🗺️</span><span>Itinéraire</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ INSTAGRAM ═══════════ -->
+<section class="section section--dark" id="instagram">
+  <div class="container">
+    <div class="section-label rv">Réseaux Sociaux</div>
+    <h2 class="section-title rv">Instagram</h2>
+    <div class="ig-header rv">
+      <div class="ig-profile">
+        <div class="ig-avatar">✨</div>
+        <div><div class="ig-handle">@eclat.lounge</div><div class="ig-sub">Suivez-nous pour les dernières actualités</div></div>
+      </div>
+      <a class="btn btn-outline dt">Suivre</a>
+    </div>
+    <div class="ig-grid" id="igGrid"></div>
+    <div class="text-center rv" style="margin-top:2rem"><a class="btn btn-ghost dt">Voir tous les posts →</a></div>
+  </div>
+</section>
+
+<!-- ═══════════ REVIEWS ═══════════ -->
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="section-label rv">Avis Clients</div>
+    <h2 class="section-title rv">Ce que disent nos hôtes</h2>
+    <div class="rating-hero rv">
+      <div class="rating-num">4.9</div>
+      <div>
+        <div class="rating-stars">★★★★★</div>
+        <div class="rating-ct">312 avis Google</div>
+        <a class="btn btn-outline btn--sm dt" style="margin-top:.75rem">Laisser un avis</a>
+      </div>
+    </div>
+    <div class="carousel-wrap">
+      <div class="carousel" id="carousel"></div>
+      <div class="car-ctrl">
+        <button class="car-btn" id="prev">‹</button>
+        <div class="car-dots" id="dots"></div>
+        <button class="car-btn" id="next">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SPOTIFY ═══════════ -->
+<section class="section section--dark" id="music">
+  <div class="container">
+    <div class="section-label rv">Ambiance Sonore</div>
+    <h2 class="section-title rv">Nos Playlists</h2>
+    <p class="section-desc rv">L'atmosphère parfaite pour chaque moment de votre soirée.</p>
+    <div class="pl-tabs rv" id="plTabs"></div>
+    <div class="sp-wrap rv">
+      <iframe id="spFrame" width="100%" height="380" frameborder="0"
+        src="https://open.spotify.com/embed/playlist/37i9dQZF1DX2TRYkJECvfC"
+        allow="autoplay;clipboard-write;encrypted-media;fullscreen;picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DJS ═══════════ -->
+<section class="section" id="djs">
+  <div class="container">
+    <div class="section-label rv">Cette Semaine</div>
+    <h2 class="section-title rv">DJ Lineup</h2>
+    <div class="glass dj-feat rv" id="djFeat"></div>
+    <div class="dj-grid" id="djGrid"></div>
+  </div>
+</section>
+
+<!-- ═══════════ RESERVATION ═══════════ -->
+<section class="section section--gold" id="reservation">
+  <div class="container">
+    <div class="section-label rv" style="color:rgba(8,8,8,.6)">Réservation Exclusive</div>
+    <h2 class="section-title rv" style="color:#080808">Réservez Votre Table VIP</h2>
+    <p class="section-desc rv" style="color:rgba(8,8,8,.7)">Notre équipe conciergerie est disponible 7j/7 pour créer votre soirée parfaite.</p>
+    <div class="res-cards rv">
+      <a class="res-card dt"><div class="res-icon">💬</div><div class="res-title">WhatsApp</div><div class="res-sub">Réponse rapide</div></a>
+      <a class="res-card dt"><div class="res-icon">📞</div><div class="res-title">Appeler</div><div class="res-sub">+377 99 00 00 00</div></a>
+      <a class="res-card dt"><div class="res-icon">✉️</div><div class="res-title">Email</div><div class="res-sub">vip@eclat-lounge.com</div></a>
+    </div>
+    <div class="form-wrap rv">
+      <h3 class="form-title">Formulaire de Réservation</h3>
+      <form onsubmit="demo(event)">
+        <div class="form-row">
+          <div class="form-g"><label>Nom complet</label><input type="text" placeholder="Alexandre Dupont"/></div>
+          <div class="form-g"><label>Téléphone</label><input type="tel" placeholder="+33 6 00 00 00 00"/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-g"><label>Date souhaitée</label><input type="date"/></div>
+          <div class="form-g"><label>Nombre de personnes</label>
+            <select><option>2 personnes</option><option>3-4 personnes</option><option>5-6 personnes</option><option>7-10 personnes</option><option>Événement privé (10+)</option></select>
+          </div>
+        </div>
+        <div class="form-g" style="margin-bottom:1rem"><label>Message (optionnel)</label><textarea placeholder="Occasion spéciale, demandes particulières…" rows="3"></textarea></div>
+        <button type="submit" class="btn btn-dark btn--full">Envoyer la demande de réservation</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOD MENU ═══════════ -->
+<section class="section section--dark" id="menus">
+  <div class="container">
+    <div class="section-label rv">Gastronomie</div>
+    <h2 class="section-title rv">Notre Carte</h2>
+    <p class="section-desc rv">Une cuisine d'auteur aux influences méditerranéennes et asiatiques.</p>
+    <div class="acc rv" id="foodAcc"></div>
+  </div>
+</section>
+
+<!-- ═══════════ DRINKS ═══════════ -->
+<section class="section" id="drinks">
+  <div class="container">
+    <div class="section-label rv">Bar &amp; Cave</div>
+    <h2 class="section-title rv">Carte des Boissons</h2>
+    <p class="section-desc rv">Une sélection de champagnes, cocktails signature et spiritueux d'exception.</p>
+    <div class="acc rv" id="drinkAcc"></div>
+  </div>
+</section>
+
+<!-- ═══════════ EVENTS ═══════════ -->
+<section class="section section--dark" id="events">
+  <div class="container">
+    <div class="section-label rv">Agenda</div>
+    <h2 class="section-title rv">Prochains Événements</h2>
+    <p class="section-desc rv">Des soirées d'exception, réservées à une clientèle d'élite.</p>
+    <div class="ev-grid" id="evGrid"></div>
+  </div>
+</section>
+
+<!-- ═══════════ NFC ═══════════ -->
+<section class="section nfc-s" id="nfc">
+  <div class="nfc-glow"></div>
+  <div class="container">
+    <div class="section-label rv" style="color:var(--gold-l)">Technologie</div>
+    <h2 class="section-title rv">The Lumière Experience</h2>
+    <p class="section-desc rv">Chaque bouteille est une œuvre d'art unique — un Dom Pérignon recyclé transformé en lampe de luxe. À l'intérieur, une puce NFC connecte votre monde à une expérience digitale immersive.</p>
+    <div class="nfc-vis rv">
+      <div class="nfc-phone">
+        <div class="nfc-wave nfc-wave-1"></div>
+        <div class="nfc-wave nfc-wave-2"></div>
+        <div class="nfc-wave nfc-wave-3"></div>
+        <div class="nfc-screen"><div class="nfc-pi">📲</div><div class="nfc-pt">Experience Unlocked</div></div>
+      </div>
+      <div class="nfc-conn">
+        <div class="nfc-line"></div>
+        <div class="nfc-chip"><span>NFC</span></div>
+        <div class="nfc-line"></div>
+      </div>
+      <div><div class="nfc-btl">🍾</div><div class="nfc-btl-glow"></div></div>
+    </div>
+    <div class="nfc-feats rv" id="nfcFeats"></div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-logo">ÉCLAT</div>
+    <p class="footer-tl">Crafted with prestige. Experienced with a tap.</p>
+    <div class="footer-soc">
+      <a class="footer-sb dt"><span>📸</span><span>Instagram</span></a>
+      <a class="footer-sb dt"><span>🔵</span><span>Facebook</span></a>
+      <a class="footer-sb dt"><span>🎵</span><span>TikTok</span></a>
+    </div>
+  </div>
+  <div class="footer-links">
+    <a href="#about" class="footer-link dt">L'Établissement</a>
+    <a href="#menus" class="footer-link dt">Menus</a>
+    <a href="#events" class="footer-link dt">Événements</a>
+    <a href="#reservation" class="footer-link dt">Réservation</a>
+    <a href="#nfc" class="footer-link dt">Expérience NFC</a>
+  </div>
+  <div class="footer-bot">
+    <p class="footer-cr">© 2026 Éclat Lounge. All rights reserved.</p>
+    <p class="footer-pw">Powered by Lumière NFC Experience</p>
+  </div>
+</footer>
+
+<script>
+/* =====================================================
+   ALL CONTENT — Edit this object to customise the page
+   ===================================================== */
+const C = {
+  ig: [
+    {src:"https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=400&q=80",cap:"Friday nights at Éclat ✨"},
+    {src:"https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=400&q=80",cap:"Cocktails signature 🥂"},
+    {src:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80",cap:"Gastronomie élevée 🍽️"},
+    {src:"https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80",cap:"Dance until dawn 🎶"},
+    {src:"https://images.unsplash.com/photo-1481833761820-0509d3217039?w=400&q=80",cap:"Dom Pérignon nights 🍾"},
+    {src:"https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=400&q=80",cap:"Tables VIP privées 💎"},
+  ],
+  reviews:[
+    {name:"Alexandre M.",av:"AM",stars:5,text:"An unparalleled experience. The ambiance, the service, the music — everything was flawless."},
+    {name:"Sophia R.",av:"SR",stars:5,text:"Éclat is simply the best venue on the Riviera. The champagne selection is extraordinary."},
+    {name:"James K.",av:"JK",stars:5,text:"Impeccable service from start to finish. The VIP table experience exceeded every expectation."},
+    {name:"Isabelle D.",av:"ID",stars:5,text:"The DJ set was phenomenal. Music, lighting, cocktails — all perfect. A night to remember."},
+    {name:"Marco V.",av:"MV",stars:5,text:"Came for a birthday. The team went above and beyond. Highly recommend the Dom Pérignon bottle service."},
+  ],
+  playlists:[
+    {label:"Lounge",icon:"🕯️",url:"https://open.spotify.com/embed/playlist/37i9dQZF1DX2TRYkJECvfC"},
+    {label:"Afro House",icon:"🌍",url:"https://open.spotify.com/embed/playlist/37i9dQZF1DWYkaDif7Ztbp"},
+    {label:"Deep House",icon:"🎛️",url:"https://open.spotify.com/embed/playlist/37i9dQZF1DX2TRYkJECvfC"},
+    {label:"Chill",icon:"🌙",url:"https://open.spotify.com/embed/playlist/37i9dQZF1DWZd79rJ6a7lp"},
+  ],
+  featDJ:{name:"DJ SULTAN",bio:"Resident DJ de l'année. Sultan apporte une fusion d'Afro House, Melodic Techno et Deep House qui est devenu le son signature d'Éclat.",img:"https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=400&q=80",nextSet:"Vendredi 30 Mai — 00:00"},
+  djs:[
+    {name:"SULTAN",genre:"Afro House · Deep House",img:"https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=400&q=80",nextSet:"Ven 30 Mai · 00:00",res:true},
+    {name:"NOVA",genre:"Melodic Techno · Progressive",img:"https://images.unsplash.com/photo-1593697972646-2f348765e73e?w=400&q=80",nextSet:"Sam 31 Mai · 23:30",res:false},
+    {name:"ARIA",genre:"Lounge · Chill Vibes",img:"",nextSet:"Dim 1 Juin · 21:00",res:false},
+  ],
+  foodMenu:[
+    {cat:"Entrées",icon:"🌿",items:[
+      {name:"Caviar Osciètre",desc:"30g, blinis maison, crème fraîche citronnée",price:"€95"},
+      {name:"Foie Gras de Canard",desc:"Chutney de figues, brioche toastée, fleur de sel",price:"€38"},
+      {name:"Tartare de Thon",desc:"Avocat, sésame noir, émulsion yuzu",price:"€29"},
+      {name:"Burrata Truffe Noire",desc:"Tomates cerises, basilic, huile d'olive AOP",price:"€32"},
+    ]},
+    {cat:"Plats",icon:"🍽️",items:[
+      {name:"Wagyu A5 Japonais",desc:"250g, jus corsé, pomme purée à la truffe",price:"€145"},
+      {name:"Homard Bleu Rôti",desc:"Beurre aux algues, légumes de saison",price:"€88"},
+      {name:"Risotto aux Truffes",desc:"Parmesan 24 mois, truffe noire du Périgord",price:"€65"},
+      {name:"Sole Meunière",desc:"Câpres, citron confit, herbes fraîches",price:"€72"},
+    ]},
+    {cat:"Desserts",icon:"🍰",items:[
+      {name:"Soufflé au Grand Marnier",desc:"Sorbet mandarine, tuile croustillante",price:"€22"},
+      {name:"Mille-Feuille Vanille",desc:"Vanille de Tahiti, caramel beurre salé",price:"€18"},
+      {name:"Plateau de Fromages",desc:"Sélection affinée, confitures, noix",price:"€26"},
+    ]},
+  ],
+  drinksMenu:[
+    {cat:"Champagne & Pétillants",icon:"🍾",items:[
+      {name:"Dom Pérignon 2015",desc:"Moët & Chandon — Blanc",price:"€350"},
+      {name:"Dom Pérignon Rosé 2008",desc:"Cuvée prestige rosé",price:"€580"},
+      {name:"Cristal Roederer 2016",desc:"Louis Roederer — Brut",price:"€420"},
+      {name:"Krug Grande Cuvée",desc:"Multi-millésime — 170ème Édition",price:"€390"},
+      {name:"Armand de Brignac Gold",desc:"Ace of Spades — Brut",price:"€450"},
+    ]},
+    {cat:"Cocktails Signature",icon:"🍸",items:[
+      {name:"Éclat Royal",desc:"Champagne, hibiscus, litchi, or comestible",price:"€28"},
+      {name:"Monaco Nights",desc:"Grey Goose, bergamote, rose, eau tonique premium",price:"€24"},
+      {name:"Riviera Gold",desc:"Tequila Patrón, gingembre, yuzu, miel de Manuka",price:"€26"},
+      {name:"Black Pearl",desc:"Rum Diplomatico, cacao noir, caramel salé, crème",price:"€22"},
+      {name:"Minuit Bleu",desc:"Hendrick's Gin, lavande, myrtille, citron",price:"€24"},
+    ]},
+    {cat:"Spiritueux Premium",icon:"🥃",items:[
+      {name:"Hennessy Paradis",desc:"Cognac d'exception — 3cl",price:"€85"},
+      {name:"Macallan 18 ans",desc:"Single Malt Scotch — 3cl",price:"€65"},
+      {name:"Patrón El Alto",desc:"Tequila Extra Añejo — 3cl",price:"€55"},
+      {name:"Grey Goose",desc:"Vodka française — 3cl",price:"€18"},
+    ]},
+    {cat:"Sans Alcool",icon:"🌊",items:[
+      {name:"Riviera Breeze",desc:"Eau de coco, mangue, citron vert, menthe",price:"€14"},
+      {name:"Gold Detox",desc:"Curcuma, gingembre, pomme verte, miel",price:"€12"},
+      {name:"Perrier Jouet",desc:"Eau minérale pétillante premium — 75cl",price:"€16"},
+    ]},
+  ],
+  events:[
+    {title:"WHITE NIGHT",sub:"Dress Code: All White",date:"2026-05-30",ddate:"Vendredi 30 Mai 2026",time:"22:00 — 04:00",desc:"Notre événement annuel le plus attendu. Dress code tout blanc, DJs internationaux, Dom Pérignon open bar, et une expérience que vous n'oublierez jamais.",tag:"SOLD OUT LAST YEAR",img:"https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80"},
+    {title:"ROSÉ SUNSET",sub:"Terrace Opening Night",date:"2026-06-07",ddate:"Dimanche 7 Juin 2026",time:"19:00 — 02:00",desc:"Bienvenue à l'été sur notre terrasse rooftop. Sélection de vins rosés, quartet de jazz live et un coucher de soleil sur la Méditerranée.",tag:"SUMMER OPENING",img:"https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=80"},
+    {title:"BLACK & GOLD",sub:"Exclusive Gala Night",date:"2026-07-12",ddate:"Samedi 12 Juillet 2026",time:"20:00 — 05:00",desc:"Une nuit d'opulence pure. Black tie optionnel. DJ headliner célébrité. Limité à 150 invités.",tag:"PLACES LIMITÉES",img:"https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80"},
+  ],
+  nfcFeats:[
+    {icon:"📲",title:"Accès Instantané",text:"Un tap. Aucune app. Votre expérience s'ouvre instantanément."},
+    {icon:"🍾",title:"Bouteilles Uniques",text:"Chaque lampe est une pièce artisanale issue d'une bouteille Dom Pérignon authentique."},
+    {icon:"✨",title:"Mise à Jour Live",text:"Menus, événements, playlists mis à jour en temps réel."},
+    {icon:"💎",title:"Design Sur Mesure",text:"Chaque page est conçue sur mesure pour l'identité de l'établissement."},
+  ],
+};
+
+/* =====================================================
+   RENDER
+   ===================================================== */
+function showDemo(e){if(e)e.preventDefault();document.getElementById('demoOverlay').classList.add('active')}
+function demo(e){e.preventDefault();showDemo()}
+
+/* Instagram */
+document.getElementById('igGrid').innerHTML = C.ig.map(p=>`
+  <div class="ig-post">
+    <img src="${p.src}" alt="${p.cap}" loading="lazy"/>
+    <div class="ig-post-ov"><p class="ig-cap">${p.cap}</p></div>
+  </div>`).join('');
+
+/* Reviews carousel */
+(function(){
+  const car = document.getElementById('carousel');
+  const dotsEl = document.getElementById('dots');
+  car.innerHTML = C.reviews.map(r=>`
+    <div class="review-card">
+      <div class="review-hd">
+        <div class="review-av">${r.av}</div>
+        <div><div class="review-name">${r.name}</div><div class="review-stars">${'★'.repeat(r.stars)}</div></div>
+      </div>
+      <p class="review-txt">${r.text}</p>
+    </div>`).join('');
+  dotsEl.innerHTML = C.reviews.map((_,i)=>`<button class="car-dot${i===0?' on':''}" data-i="${i}"></button>`).join('');
+  let cur=0;
+  function go(i){cur=(i+C.reviews.length)%C.reviews.length;car.style.transform=`translateX(calc(-${cur*100}% - ${cur}rem))`;dotsEl.querySelectorAll('.car-dot').forEach((d,j)=>d.classList.toggle('on',j===cur))}
+  document.getElementById('prev').onclick=()=>go(cur-1);
+  document.getElementById('next').onclick=()=>go(cur+1);
+  dotsEl.onclick=e=>{const b=e.target.closest('.car-dot');if(b)go(+b.dataset.i)};
+  setInterval(()=>go(cur+1),5500);
+})();
+
+/* Spotify tabs */
+(function(){
+  const tabs = document.getElementById('plTabs');
+  const fr = document.getElementById('spFrame');
+  tabs.innerHTML = C.playlists.map((p,i)=>`<button class="pl-tab${i===0?' on':''}" data-u="${p.url}">${p.icon} ${p.label}</button>`).join('');
+  tabs.onclick=e=>{const b=e.target.closest('.pl-tab');if(!b)return;tabs.querySelectorAll('.pl-tab').forEach(t=>t.classList.remove('on'));b.classList.add('on');fr.src=b.dataset.u};
+})();
+
+/* DJs */
+(function(){
+  const f=C.featDJ;
+  document.getElementById('djFeat').innerHTML=`
+    <span class="dj-badge">⭐ Resident DJ</span>
+    ${f.img?`<img class="dj-feat-img" src="${f.img}" alt="${f.name}" loading="lazy"/>`:`<div class="dj-feat-ph">🎧</div>`}
+    <div>
+      <div class="dj-feat-name">${f.name}</div>
+      <p class="dj-feat-bio">${f.bio}</p>
+      <div class="dj-meta"><span class="dj-set-badge">🗓 ${f.nextSet}</span><a class="btn btn-outline btn--sm dt">Instagram</a></div>
+    </div>`;
+  document.getElementById('djGrid').innerHTML=C.djs.map(d=>`
+    <div class="dj-card rv">
+      ${d.img?`<img class="dj-cimg" src="${d.img}" alt="${d.name}" loading="lazy"/>`:`<div class="dj-cph">🎧</div>`}
+      ${d.res?'<div class="dj-res">Resident</div>':''}
+      <div class="dj-cname">${d.name}</div>
+      <div class="dj-cgenre">${d.genre}</div>
+      <div class="dj-cset">🗓 ${d.nextSet}</div>
+      <a class="btn btn-outline btn--sm dt">Instagram</a>
+    </div>`).join('');
+})();
+
+/* Menus */
+function buildAcc(cats,id){
+  document.getElementById(id).innerHTML=cats.map((c,ci)=>`
+    <div class="acc-cat${ci===0?' open':''}">
+      <div class="acc-hd">
+        <div class="acc-left"><span class="acc-ico">${c.icon}</span><div><div class="acc-name">${c.cat}</div><div class="acc-ct">${c.items.length} articles</div></div></div>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body"><div class="acc-items">${c.items.map(it=>`
+        <div class="mi">
+          <div class="mi-info"><div class="mi-name">${it.name}</div><div class="mi-desc">${it.desc}</div></div>
+          <div class="mi-price">${it.price}</div>
+        </div>`).join('')}</div></div>
+    </div>`).join('');
+  document.getElementById(id).onclick=e=>{
+    const hd=e.target.closest('.acc-hd');if(!hd)return;
+    hd.closest('.acc-cat').classList.toggle('open');
+  };
+}
+buildAcc(C.foodMenu,'foodAcc');
+buildAcc(C.drinksMenu,'drinkAcc');
+
+/* Events + countdown */
+document.getElementById('evGrid').innerHTML=C.events.map((ev,i)=>`
+  <div class="ev-card rv" style="transition-delay:${i*.1}s">
+    <div class="ev-img"><img src="${ev.img}" alt="${ev.title}" loading="lazy"/></div>
+    <div class="ev-body">
+      ${ev.tag?`<span class="ev-tag">${ev.tag}</span>`:''}
+      <h3 class="ev-title">${ev.title}</h3>
+      <div class="ev-sub">${ev.sub}</div>
+      <p class="ev-desc">${ev.desc}</p>
+      <div class="ev-meta"><span class="ev-mi">📅 ${ev.ddate}</span><span class="ev-mi">🕙 ${ev.time}</span></div>
+      <div class="cd" id="cd${i}"></div>
+    </div>
+  </div>`).join('');
+
+function getLeft(ds){const d=Math.max(0,new Date(ds)-Date.now());return{d:String(Math.floor(d/86400000)).padStart(2,'0'),h:String(Math.floor(d%86400000/3600000)).padStart(2,'0'),m:String(Math.floor(d%3600000/60000)).padStart(2,'0'),s:String(Math.floor(d%60000/1000)).padStart(2,'0')}}
+function renderCD(ev,i){const w=document.getElementById('cd'+i);if(!w)return;const{d,h,m,s}=getLeft(ev.date);w.innerHTML=`<div class="cd-u"><span class="cd-n">${d}</span><span class="cd-l">Jours</span></div><div class="cd-u"><span class="cd-n">${h}</span><span class="cd-l">Heures</span></div><div class="cd-u"><span class="cd-n">${m}</span><span class="cd-l">Min</span></div><div class="cd-u"><span class="cd-n">${s}</span><span class="cd-l">Sec</span></div>`}
+C.events.forEach(renderCD);
+setInterval(()=>C.events.forEach(renderCD),1000);
+
+/* NFC features */
+document.getElementById('nfcFeats').innerHTML=C.nfcFeats.map(f=>`
+  <div class="nfc-feat rv"><div class="nfc-fi">${f.icon}</div><div class="nfc-ft">${f.title}</div><p class="nfc-fd">${f.text}</p></div>`).join('');
+
+/* Demo triggers */
+function bindDemo(){document.querySelectorAll('.dt').forEach(el=>{if(!el._db){el._db=true;el.addEventListener('click',showDemo)}})}
+bindDemo();
+setInterval(bindDemo,800);
+
+/* =====================================================
+   NAV
+   ===================================================== */
+const nav=document.getElementById('nav');
+const drawer=document.getElementById('drawer');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
+document.getElementById('menuBtn').onclick=()=>{drawer.classList.add('open');document.body.style.overflow='hidden'};
+const closeDrawer=()=>{drawer.classList.remove('open');document.body.style.overflow=''};
+document.getElementById('drawerClose').onclick=closeDrawer;
+drawer.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',closeDrawer));
+document.addEventListener('click',e=>{if(drawer.classList.contains('open')&&!drawer.contains(e.target)&&e.target!==document.getElementById('menuBtn'))closeDrawer()});
+
+/* =====================================================
+   SCROLL REVEAL
+   ===================================================== */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}});
+},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv').forEach(el=>{if(el.closest('#hero'))setTimeout(()=>el.classList.add('in'),600);else obs.observe(el)});
+new MutationObserver(()=>document.querySelectorAll('.rv:not(.in)').forEach(el=>{if(!el.closest('#hero'))obs.observe(el)})).observe(document.body,{childList:true,subtree:true});
+
+/* =====================================================
+   PARTICLES
+   ===================================================== */
+(function(){
+  const canvas=document.getElementById('particles-canvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  let W,H,pts;
+  function resize(){W=canvas.width=canvas.parentElement.offsetWidth;H=canvas.height=canvas.parentElement.offsetHeight}
+  function mk(){pts=Array.from({length:55},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.3,vx:(Math.random()-.5)*.3,vy:-(Math.random()*.4+.1),a:Math.random(),av:(Math.random()*.008+.003)*(Math.random()>.5?1:-1)}))}
+  function draw(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(201,169,110,${p.a.toFixed(3)})`;ctx.fill();p.x+=p.vx;p.y+=p.vy;p.a+=p.av;if(p.a<=0||p.a>=1)p.av*=-1;if(p.y<-10)p.y=H+10;if(p.x<-10)p.x=W+10;if(p.x>W+10)p.x=-10});requestAnimationFrame(draw)}
+  window.addEventListener('resize',()=>{resize();mk()},{passive:true});
+  resize();mk();draw();
+})();
+
+/* =====================================================
+   LOADER
+   ===================================================== */
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hidden'),400));
+setTimeout(()=>document.getElementById('loader').classList.add('hidden'),2800);
+</script>
+</body>
+</html>
