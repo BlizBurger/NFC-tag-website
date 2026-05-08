@@ -335,6 +335,17 @@ ul{list-style:none}
 .nfc-btl-glow{width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.15) 0%,transparent 70%);margin:-40px auto 0}
 .nfc-feats{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 @media(min-width:600px){.nfc-feats{grid-template-columns:repeat(4,1fr)}}
+
+/* NFC SHOP CTA */
+.nfc-shop{margin-top:3rem;padding:2.5rem 2rem;border:1px solid var(--gold-b);border-radius:var(--rl);background:linear-gradient(135deg,rgba(201,169,110,.06) 0%,rgba(201,169,110,.02) 100%);text-align:center;position:relative;overflow:hidden}
+.nfc-shop::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(201,169,110,.08) 0%,transparent 70%);pointer-events:none}
+.nfc-shop-eyebrow{font-family:var(--disp);font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+.nfc-shop-title{font-family:var(--serif);font-size:clamp(1.5rem,5vw,2.2rem);font-weight:300;line-height:1.2;margin-bottom:.75rem;letter-spacing:.02em}
+.nfc-shop-title span{color:var(--gold);font-style:italic}
+.nfc-shop-desc{font-size:.875rem;color:var(--wd);line-height:1.75;max-width:440px;margin:0 auto 2rem}
+.nfc-shop-btns{display:flex;flex-direction:column;align-items:center;gap:.75rem}
+@media(min-width:400px){.nfc-shop-btns{flex-direction:row;justify-content:center}}
+.nfc-shop-divider{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-b),transparent);margin:2rem auto 0}
 .nfc-feat{background:var(--card);border:1px solid var(--br);border-radius:var(--r);padding:1.5rem 1rem;text-align:center;transition:var(--tr)}
 .nfc-feat:hover{border-color:var(--brg);background:var(--card-h);transform:translateY(-2px)}
 .nfc-fi{font-size:1.75rem;margin-bottom:.75rem}
@@ -469,7 +480,7 @@ ul{list-style:none}
     <div class="info-grid">
       <div class="info-card glass rv">
         <div class="info-icon">📍</div>
-        <div><div class="info-lbl" data-i18n="about_address_lbl">Adresse</div><div class="info-val">12 Boulevard de la Croisette, Monaco</div></div>
+        <div><div class="info-lbl" data-i18n="about_address_lbl">Adresse</div><div class="info-val">Bahnhofstrasse 1, 8001 Zürich, Suisse</div></div>
       </div>
       <div class="info-card glass rv d1">
         <div class="info-icon">🕘</div>
@@ -640,6 +651,27 @@ ul{list-style:none}
       <div><div class="nfc-btl">🍾</div><div class="nfc-btl-glow"></div></div>
     </div>
     <div class="nfc-feats rv" id="nfcFeats"></div>
+
+    <!-- SHOP CTA -->
+    <div class="nfc-shop rv">
+      <div class="nfc-shop-eyebrow" data-i18n="shop_eyebrow">Lumière · Collections</div>
+      <h3 class="nfc-shop-title">
+        <span data-i18n="shop_title_1">Qui sommes-nous ?</span><br>
+        <span data-i18n="shop_title_2">Découvrez l'univers ÉCLAT</span>
+      </h3>
+      <p class="nfc-shop-desc" data-i18n="shop_desc">
+        ÉCLAT transforme de grandes bouteilles de collection en lampes de luxe uniques, dotées d'une puce NFC qui connecte chaque pièce à une expérience digitale sur mesure. Chaque lampe raconte une histoire — la vôtre.
+      </p>
+      <div class="nfc-shop-btns">
+        <a href="https://eclat-lumiere.ch" target="_blank" class="btn btn-primary" data-i18n="shop_btn_primary">
+          🛍 Acheter nos lampes
+        </a>
+        <a href="https://eclat-lumiere.ch" target="_blank" class="btn btn-ghost" data-i18n="shop_btn_secondary">
+          En savoir plus →
+        </a>
+      </div>
+      <div class="nfc-shop-divider"></div>
+    </div>
   </div>
 </section>
 
@@ -776,7 +808,7 @@ const T = {
     hero_eyebrow:"Tap Into The Experience", hero_sub:"Découvrez l'expérience",
     hero_cta_primary:"Réserver une table VIP", hero_cta_secondary:"Découvrir", scroll:"Scroll",
     about_label:"L'Établissement",
-    about_desc:"Un monde intime où gastronomie, art et musique convergent. Au cœur de la Riviera, Éclat redéfinit la nuit de luxe avec des expériences sur mesure pour une clientèle d'exception.",
+    about_desc:"Un monde intime où gastronomie, art et musique convergent. Au cœur de Zurich, ÉCLAT redéfinit la nuit de luxe avec des expériences sur mesure pour une clientèle d'exception.",
     about_address_lbl:"Adresse", about_hours_lbl:"Horaires",
     about_call:"Appeler", about_directions:"Itinéraire",
     hours_mon_thu:"Lundi – Jeudi", hours_fri_sat:"Vendredi – Samedi", hours_sun:"Dimanche",
@@ -817,6 +849,12 @@ const T = {
     footer_tl:"Crafted with prestige. Experienced with a tap.",
     footer_nfc:"Expérience NFC", footer_cr:"© 2026 Éclat Lounge. Tous droits réservés.",
     footer_pw:"Propulsé par Lumière NFC Experience",
+    shop_eyebrow:"Lumière · Collections",
+    shop_title_1:"Qui sommes-nous ?",
+    shop_title_2:"Découvrez l'univers ÉCLAT",
+    shop_desc:"ÉCLAT transforme de grandes bouteilles de collection en lampes de luxe uniques, dotées d'une puce NFC qui connecte chaque pièce à une expérience digitale sur mesure. Chaque lampe raconte une histoire — la vôtre.",
+    shop_btn_primary:"🛍 Acheter nos lampes",
+    shop_btn_secondary:"En savoir plus →",
     demo_title:"Fonctionnalité Active",
     demo_text:"Cette page est une démonstration. Tous les boutons et liens seront entièrement configurés pour votre établissement.",
     demo_close:"Fermer",
@@ -827,7 +865,7 @@ const T = {
     hero_eyebrow:"Tap Into The Experience", hero_sub:"Discover the experience",
     hero_cta_primary:"Reserve a VIP Table", hero_cta_secondary:"Discover", scroll:"Scroll",
     about_label:"The Venue",
-    about_desc:"An intimate world where gastronomy, art, and music converge. Nestled in the heart of the Riviera, Éclat redefines luxury nightlife with curated experiences for the most discerning guests.",
+    about_desc:"An intimate world where gastronomy, art, and music converge. Nestled in the heart of Zurich, ÉCLAT redefines luxury nightlife with curated experiences for the most discerning guests.",
     about_address_lbl:"Address", about_hours_lbl:"Opening Hours",
     about_call:"Call", about_directions:"Directions",
     hours_mon_thu:"Monday – Thursday", hours_fri_sat:"Friday – Saturday", hours_sun:"Sunday",
@@ -868,6 +906,12 @@ const T = {
     footer_tl:"Crafted with prestige. Experienced with a tap.",
     footer_nfc:"NFC Experience", footer_cr:"© 2026 Éclat Lounge. All rights reserved.",
     footer_pw:"Powered by Lumière NFC Experience",
+    shop_eyebrow:"Lumière · Collections",
+    shop_title_1:"Who are we?",
+    shop_title_2:"Discover the ÉCLAT universe",
+    shop_desc:"ÉCLAT transforms iconic collector bottles into unique luxury lamps, each housing an NFC chip that connects every piece to a bespoke digital experience. Every lamp tells a story — yours.",
+    shop_btn_primary:"🛍 Shop our lamps",
+    shop_btn_secondary:"Learn more →",
     demo_title:"Feature Active",
     demo_text:"This page is a demonstration. All buttons and links will be fully configured for your establishment.",
     demo_close:"Close",
@@ -878,7 +922,7 @@ const T = {
     hero_eyebrow:"Erleben Sie die Welt von Éclat", hero_sub:"Entdecken Sie das Erlebnis",
     hero_cta_primary:"VIP-Tisch reservieren", hero_cta_secondary:"Entdecken", scroll:"Scrollen",
     about_label:"Das Lokal",
-    about_desc:"Eine intime Welt, in der Gastronomie, Kunst und Musik zusammenkommen. Im Herzen der Riviera definiert Éclat das Luxusnachtleben mit maßgeschneiderten Erlebnissen neu.",
+    about_desc:"Eine intime Welt, in der Gastronomie, Kunst und Musik zusammenkommen. Im Herzen von Zürich definiert ÉCLAT das Luxusnachtleben mit maßgeschneiderten Erlebnissen neu.",
     about_address_lbl:"Adresse", about_hours_lbl:"Öffnungszeiten",
     about_call:"Anrufen", about_directions:"Wegbeschreibung",
     hours_mon_thu:"Montag – Donnerstag", hours_fri_sat:"Freitag – Samstag", hours_sun:"Sonntag",
@@ -919,6 +963,12 @@ const T = {
     footer_tl:"Mit Prestige gestaltet. Mit einem Tap erlebt.",
     footer_nfc:"NFC-Erlebnis", footer_cr:"© 2026 Éclat Lounge. Alle Rechte vorbehalten.",
     footer_pw:"Powered by Lumière NFC Experience",
+    shop_eyebrow:"Lumière · Kollektionen",
+    shop_title_1:"Wer sind wir?",
+    shop_title_2:"Entdecken Sie das ÉCLAT Universum",
+    shop_desc:"ÉCLAT verwandelt ikonische Sammlerflaschen in einzigartige Luxuslampen mit einem NFC-Chip, der jedes Stück mit einem maßgeschneiderten digitalen Erlebnis verbindet. Jede Lampe erzählt eine Geschichte — Ihre.",
+    shop_btn_primary:"🛍 Unsere Lampen kaufen",
+    shop_btn_secondary:"Mehr erfahren →",
     demo_title:"Funktion aktiv",
     demo_text:"Diese Seite ist eine Demonstration. Alle Schaltflächen und Links werden für Ihr Unternehmen vollständig konfiguriert.",
     demo_close:"Schließen",
@@ -929,7 +979,7 @@ const T = {
     hero_eyebrow:"Entra en la experiencia", hero_sub:"Descubre la experiencia",
     hero_cta_primary:"Reservar mesa VIP", hero_cta_secondary:"Descubrir", scroll:"Scroll",
     about_label:"El Local",
-    about_desc:"Un mundo íntimo donde la gastronomía, el arte y la música convergen. En el corazón de la Riviera, Éclat redefine la vida nocturna de lujo con experiencias exclusivas.",
+    about_desc:"Un mundo íntimo donde la gastronomía, el arte y la música convergen. En el corazón de Zúrich, ÉCLAT redefine la vida nocturna de lujo con experiencias exclusivas.",
     about_address_lbl:"Dirección", about_hours_lbl:"Horarios",
     about_call:"Llamar", about_directions:"Cómo llegar",
     hours_mon_thu:"Lunes – Jueves", hours_fri_sat:"Viernes – Sábado", hours_sun:"Domingo",
@@ -970,6 +1020,12 @@ const T = {
     footer_tl:"Creado con prestigio. Experimentado con un toque.",
     footer_nfc:"Experiencia NFC", footer_cr:"© 2026 Éclat Lounge. Todos los derechos reservados.",
     footer_pw:"Impulsado por Lumière NFC Experience",
+    shop_eyebrow:"Lumière · Colecciones",
+    shop_title_1:"¿Quiénes somos?",
+    shop_title_2:"Descubre el universo ÉCLAT",
+    shop_desc:"ÉCLAT transforma botellas de colección icónicas en lámparas de lujo únicas, dotadas de un chip NFC que conecta cada pieza a una experiencia digital a medida. Cada lámpara cuenta una historia — la tuya.",
+    shop_btn_primary:"🛍 Comprar nuestras lámparas",
+    shop_btn_secondary:"Saber más →",
     demo_title:"Función Activa",
     demo_text:"Esta página es una demostración. Todos los botones y enlaces estarán completamente configurados para su establecimiento.",
     demo_close:"Cerrar",
@@ -980,7 +1036,7 @@ const T = {
     hero_eyebrow:"Vivi l'esperienza", hero_sub:"Scopri l'esperienza",
     hero_cta_primary:"Prenota un tavolo VIP", hero_cta_secondary:"Scoprire", scroll:"Scorri",
     about_label:"Il Locale",
-    about_desc:"Un mondo intimo dove gastronomia, arte e musica convergono. Nel cuore della Riviera, Éclat ridefinisce la vita notturna di lusso con esperienze su misura per una clientela d'eccezione.",
+    about_desc:"Un mondo intimo dove gastronomia, arte e musica convergono. Nel cuore di Zurigo, ÉCLAT ridefinisce la vita notturna di lusso con esperienze su misura per una clientela d'eccezione.",
     about_address_lbl:"Indirizzo", about_hours_lbl:"Orari",
     about_call:"Chiama", about_directions:"Indicazioni",
     hours_mon_thu:"Lunedì – Giovedì", hours_fri_sat:"Venerdì – Sabato", hours_sun:"Domenica",
@@ -1021,6 +1077,12 @@ const T = {
     footer_tl:"Creato con prestigio. Vissuto con un tap.",
     footer_nfc:"Esperienza NFC", footer_cr:"© 2026 Éclat Lounge. Tutti i diritti riservati.",
     footer_pw:"Powered by Lumière NFC Experience",
+    shop_eyebrow:"Lumière · Collezioni",
+    shop_title_1:"Chi siamo?",
+    shop_title_2:"Scopri l'universo ÉCLAT",
+    shop_desc:"ÉCLAT trasforma bottiglie da collezione iconiche in lampade di lusso uniche, dotate di un chip NFC che collega ogni pezzo a un'esperienza digitale su misura. Ogni lampada racconta una storia — la tua.",
+    shop_btn_primary:"🛍 Acquista le nostre lampade",
+    shop_btn_secondary:"Scopri di più →",
     demo_title:"Funzione Attiva",
     demo_text:"Questa pagina è una dimostrazione. Tutti i pulsanti e i link saranno completamente configurati per il vostro esercizio.",
     demo_close:"Chiudi",
