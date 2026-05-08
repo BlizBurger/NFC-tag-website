@@ -93,9 +93,24 @@ ul{list-style:none}
 .demo-close:hover{background:var(--gold-l)}
 
 /* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .4s}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.25rem 1.5rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;transition:background .4s,padding .4s}
 .nav.scrolled{background:rgba(8,8,8,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:.85rem 1.5rem;border-bottom:1px solid var(--br)}
-.nav-logo{font-family:var(--serif);font-size:1.5rem;font-weight:400;letter-spacing:.2em;color:var(--gold)}
+.nav-logo{font-family:var(--serif);font-size:1.5rem;font-weight:400;letter-spacing:.2em;color:var(--gold);text-align:center}
+.nav-right{display:flex;justify-content:flex-end}
+
+/* LANGUAGE SWITCHER */
+.lang-sw{position:relative}
+.lang-btn{display:flex;align-items:center;gap:.4rem;padding:.4rem .75rem;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--br);color:var(--wd);font-family:var(--disp);font-size:.65rem;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:var(--trf);white-space:nowrap}
+.lang-btn:hover{border-color:var(--gold-b);color:var(--gold)}
+.lang-btn .lang-flag{font-size:.9rem;line-height:1}
+.lang-btn .lang-caret{font-size:.55rem;opacity:.6;transition:transform .2s}
+.lang-sw.open .lang-caret{transform:rotate(180deg)}
+.lang-dropdown{position:absolute;top:calc(100% + .5rem);left:0;min-width:140px;background:var(--bg3);border:1px solid var(--gold-b);border-radius:var(--rs);padding:.4rem;display:none;flex-direction:column;gap:.1rem;z-index:3000;box-shadow:0 12px 40px rgba(0,0,0,.6)}
+.lang-sw.open .lang-dropdown{display:flex}
+.lang-option{display:flex;align-items:center;gap:.6rem;padding:.6rem .75rem;border-radius:6px;font-family:var(--disp);font-size:.72rem;font-weight:600;color:var(--wd);cursor:pointer;transition:background .15s,color .15s;letter-spacing:.04em}
+.lang-option:hover{background:var(--gold-d);color:var(--gold)}
+.lang-option.active{color:var(--gold);background:var(--gold-d)}
+.lang-option-flag{font-size:1rem;line-height:1}
 .nav-menu-btn{display:flex;flex-direction:column;gap:5px;padding:.5rem}
 .nav-menu-btn span{display:block;width:22px;height:1.5px;background:var(--w);transition:var(--tr)}
 .nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,85vw);background:var(--bg3);border-left:1px solid var(--br);backdrop-filter:blur(30px);z-index:2000;padding:5rem 2rem 2rem;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
@@ -359,25 +374,48 @@ ul{list-style:none}
 <div class="demo-overlay" id="demoOverlay">
   <div class="demo-modal">
     <div class="demo-modal-icon">💎</div>
-    <h3>Fonctionnalité Active</h3>
-    <p>Cette page est une démonstration. Tous les boutons et liens seront entièrement configurés pour votre établissement.</p>
-    <button class="demo-close" onclick="document.getElementById('demoOverlay').classList.remove('active')">Fermer</button>
+    <h3 data-i18n="demo_title">Fonctionnalité Active</h3>
+    <p data-i18n="demo_text">Cette page est une démonstration. Tous les boutons et liens seront entièrement configurés pour votre établissement.</p>
+    <button class="demo-close" onclick="document.getElementById('demoOverlay').classList.remove('active')" data-i18n="demo_close">Fermer</button>
   </div>
 </div>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
+  <!-- Language switcher — left column -->
+  <div class="lang-sw" id="langSw">
+    <button class="lang-btn" id="langBtn" aria-label="Language">
+      <span class="lang-flag" id="langFlag">🇫🇷</span>
+      <span id="langCode">FR</span>
+      <span class="lang-caret">▾</span>
+    </button>
+    <div class="lang-dropdown" id="langDropdown">
+      <div class="lang-option active" data-lang="fr"><span class="lang-option-flag">🇫🇷</span> Français</div>
+      <div class="lang-option" data-lang="en"><span class="lang-option-flag">🇬🇧</span> English</div>
+      <div class="lang-option" data-lang="de"><span class="lang-option-flag">🇩🇪</span> Deutsch</div>
+      <div class="lang-option" data-lang="es"><span class="lang-option-flag">🇪🇸</span> Español</div>
+      <div class="lang-option" data-lang="it"><span class="lang-option-flag">🇮🇹</span> Italiano</div>
+    </div>
+  </div>
+
+  <!-- Logo — center column -->
   <div class="nav-logo">ÉCLAT</div>
-  <button class="nav-menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+
+  <!-- Hamburger — right column -->
+  <div class="nav-right">
+    <button class="nav-menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+
+  <!-- Drawer -->
   <div class="nav-drawer" id="drawer">
     <button class="nav-drawer-close" id="drawerClose">✕</button>
     <nav class="nav-links">
-      <a href="#about"       class="nav-link dt">L'Établissement</a>
-      <a href="#menus"       class="nav-link dt">Menus</a>
-      <a href="#drinks"      class="nav-link dt">Boissons</a>
+      <a href="#about"       class="nav-link dt" data-i18n="nav_venue">L'Établissement</a>
+      <a href="#menus"       class="nav-link dt" data-i18n="nav_menus">Menus</a>
+      <a href="#drinks"      class="nav-link dt" data-i18n="nav_drinks">Boissons</a>
       <a href="#djs"         class="nav-link dt">DJs</a>
-      <a href="#events"      class="nav-link dt">Événements</a>
-      <a href="#reservation" class="nav-link dt">Réservation</a>
+      <a href="#events"      class="nav-link dt" data-i18n="nav_events">Événements</a>
+      <a href="#reservation" class="nav-link dt" data-i18n="nav_reservation">Réservation</a>
     </nav>
   </div>
 </nav>
@@ -406,49 +444,49 @@ ul{list-style:none}
     </div>
   </div>
   <div class="hero-content">
-    <div class="hero-eyebrow rv d1"><span class="hero-dot"></span>Tap Into The Experience</div>
+    <div class="hero-eyebrow rv d1"><span class="hero-dot"></span><span data-i18n="hero_eyebrow">Tap Into The Experience</span></div>
     <h1 class="hero-title rv d2">ÉCLAT</h1>
     <p class="hero-tagline rv d3">Where Prestige Meets the Night</p>
     <div class="hero-divider rv d4"></div>
-    <p class="hero-sub rv d4">Découvrez l'expérience</p>
+    <p class="hero-sub rv d4" data-i18n="hero_sub">Découvrez l'expérience</p>
     <div class="hero-cta rv d5">
       <a href="#reservation" class="btn btn-primary dt">
-        Réserver une table VIP
+        <span data-i18n="hero_cta_primary">Réserver une table VIP</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="#about" class="btn btn-ghost dt">Découvrir</a>
+      <a href="#about" class="btn btn-ghost dt" data-i18n="hero_cta_secondary">Découvrir</a>
     </div>
   </div>
-  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span data-i18n="scroll">Scroll</span></div>
 </section>
 
 <!-- ═══════════ ABOUT ═══════════ -->
 <section class="section" id="about">
   <div class="container">
-    <div class="section-label rv">L'Établissement</div>
+    <div class="section-label rv" data-i18n="about_label">L'Établissement</div>
     <h2 class="section-title rv">Éclat Lounge &amp; Restaurant</h2>
-    <p class="section-desc rv">An intimate world where gastronomy, art, and music converge. Nestled in the heart of the Riviera, Éclat redefines luxury nightlife with curated experiences for the most discerning guests.</p>
+    <p class="section-desc rv" data-i18n="about_desc">An intimate world where gastronomy, art, and music converge. Nestled in the heart of the Riviera, Éclat redefines luxury nightlife with curated experiences for the most discerning guests.</p>
     <div class="info-grid">
       <div class="info-card glass rv">
         <div class="info-icon">📍</div>
-        <div><div class="info-lbl">Adresse</div><div class="info-val">12 Boulevard de la Croisette, Monaco</div></div>
+        <div><div class="info-lbl" data-i18n="about_address_lbl">Adresse</div><div class="info-val">12 Boulevard de la Croisette, Monaco</div></div>
       </div>
       <div class="info-card glass rv d1">
         <div class="info-icon">🕘</div>
         <div>
-          <div class="info-lbl">Horaires</div>
+          <div class="info-lbl" data-i18n="about_hours_lbl">Horaires</div>
           <ul class="hours-list">
-            <li><span class="day">Lundi – Jeudi</span><span class="time">19:00 – 02:00</span></li>
-            <li><span class="day">Vendredi – Samedi</span><span class="time">19:00 – 04:00</span></li>
-            <li><span class="day">Dimanche</span><span class="time">19:00 – 01:00</span></li>
+            <li><span class="day" data-i18n="hours_mon_thu">Lundi – Jeudi</span><span class="time">19:00 – 02:00</span></li>
+            <li><span class="day" data-i18n="hours_fri_sat">Vendredi – Samedi</span><span class="time">19:00 – 04:00</span></li>
+            <li><span class="day" data-i18n="hours_sun">Dimanche</span><span class="time">19:00 – 01:00</span></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="contact-btns rv">
-      <a class="cta-btn cta-call dt"><span class="cta-btn-icon">📞</span><span>Appeler</span></a>
+      <a class="cta-btn cta-call dt"><span class="cta-btn-icon">📞</span><span data-i18n="about_call">Appeler</span></a>
       <a class="cta-btn cta-wa dt"><span class="cta-btn-icon">💬</span><span>WhatsApp</span></a>
-      <a class="cta-btn cta-map dt"><span class="cta-btn-icon">🗺️</span><span>Itinéraire</span></a>
+      <a class="cta-btn cta-map dt"><span class="cta-btn-icon">🗺️</span><span data-i18n="about_directions">Itinéraire</span></a>
     </div>
   </div>
 </section>
@@ -456,31 +494,31 @@ ul{list-style:none}
 <!-- ═══════════ INSTAGRAM ═══════════ -->
 <section class="section section--dark" id="instagram">
   <div class="container">
-    <div class="section-label rv">Réseaux Sociaux</div>
-    <h2 class="section-title rv">Instagram</h2>
+    <div class="section-label rv" data-i18n="ig_label">Réseaux Sociaux</div>
+    <h2 class="section-title rv" data-i18n="ig_title">Instagram</h2>
     <div class="ig-header rv">
       <div class="ig-profile">
         <div class="ig-avatar">✨</div>
-        <div><div class="ig-handle">@eclat.lounge</div><div class="ig-sub">Suivez-nous pour les dernières actualités</div></div>
+        <div><div class="ig-handle">@eclat.lounge</div><div class="ig-sub" data-i18n="ig_sub">Suivez-nous pour les dernières actualités</div></div>
       </div>
-      <a class="btn btn-outline dt">Suivre</a>
+      <a class="btn btn-outline dt" data-i18n="ig_follow">Suivre</a>
     </div>
     <div class="ig-grid" id="igGrid"></div>
-    <div class="text-center rv" style="margin-top:2rem"><a class="btn btn-ghost dt">Voir tous les posts →</a></div>
+    <div class="text-center rv" style="margin-top:2rem"><a class="btn btn-ghost dt" data-i18n="ig_see_all">Voir tous les posts →</a></div>
   </div>
 </section>
 
 <!-- ═══════════ REVIEWS ═══════════ -->
 <section class="section" id="reviews">
   <div class="container">
-    <div class="section-label rv">Avis Clients</div>
-    <h2 class="section-title rv">Ce que disent nos hôtes</h2>
+    <div class="section-label rv" data-i18n="rev_label">Avis Clients</div>
+    <h2 class="section-title rv" data-i18n="rev_title">Ce que disent nos hôtes</h2>
     <div class="rating-hero rv">
       <div class="rating-num">4.9</div>
       <div>
         <div class="rating-stars">★★★★★</div>
-        <div class="rating-ct">312 avis Google</div>
-        <a class="btn btn-outline btn--sm dt" style="margin-top:.75rem">Laisser un avis</a>
+        <div class="rating-ct" data-i18n="rev_count">312 avis Google</div>
+        <a class="btn btn-outline btn--sm dt" style="margin-top:.75rem" data-i18n="rev_leave">Laisser un avis</a>
       </div>
     </div>
     <div class="carousel-wrap">
@@ -497,9 +535,9 @@ ul{list-style:none}
 <!-- ═══════════ SPOTIFY ═══════════ -->
 <section class="section section--dark" id="music">
   <div class="container">
-    <div class="section-label rv">Ambiance Sonore</div>
-    <h2 class="section-title rv">Nos Playlists</h2>
-    <p class="section-desc rv">L'atmosphère parfaite pour chaque moment de votre soirée.</p>
+    <div class="section-label rv" data-i18n="sp_label">Ambiance Sonore</div>
+    <h2 class="section-title rv" data-i18n="sp_title">Nos Playlists</h2>
+    <p class="section-desc rv" data-i18n="sp_desc">L'atmosphère parfaite pour chaque moment de votre soirée.</p>
     <div class="pl-tabs rv" id="plTabs"></div>
     <div class="sp-wrap rv">
       <iframe id="spFrame" width="100%" height="380" frameborder="0"
@@ -512,8 +550,8 @@ ul{list-style:none}
 <!-- ═══════════ DJS ═══════════ -->
 <section class="section" id="djs">
   <div class="container">
-    <div class="section-label rv">Cette Semaine</div>
-    <h2 class="section-title rv">DJ Lineup</h2>
+    <div class="section-label rv" data-i18n="dj_label">Cette Semaine</div>
+    <h2 class="section-title rv" data-i18n="dj_title">DJ Lineup</h2>
     <div class="glass dj-feat rv" id="djFeat"></div>
     <div class="dj-grid" id="djGrid"></div>
   </div>
@@ -522,29 +560,29 @@ ul{list-style:none}
 <!-- ═══════════ RESERVATION ═══════════ -->
 <section class="section section--gold" id="reservation">
   <div class="container">
-    <div class="section-label rv" style="color:rgba(8,8,8,.6)">Réservation Exclusive</div>
-    <h2 class="section-title rv" style="color:#080808">Réservez Votre Table VIP</h2>
-    <p class="section-desc rv" style="color:rgba(8,8,8,.7)">Notre équipe conciergerie est disponible 7j/7 pour créer votre soirée parfaite.</p>
+    <div class="section-label rv" style="color:rgba(8,8,8,.6)" data-i18n="res_label">Réservation Exclusive</div>
+    <h2 class="section-title rv" style="color:#080808" data-i18n="res_title">Réservez Votre Table VIP</h2>
+    <p class="section-desc rv" style="color:rgba(8,8,8,.7)" data-i18n="res_desc">Notre équipe conciergerie est disponible 7j/7 pour créer votre soirée parfaite.</p>
     <div class="res-cards rv">
-      <a class="res-card dt"><div class="res-icon">💬</div><div class="res-title">WhatsApp</div><div class="res-sub">Réponse rapide</div></a>
-      <a class="res-card dt"><div class="res-icon">📞</div><div class="res-title">Appeler</div><div class="res-sub">+377 99 00 00 00</div></a>
+      <a class="res-card dt"><div class="res-icon">💬</div><div class="res-title">WhatsApp</div><div class="res-sub" data-i18n="res_wa_sub">Réponse rapide</div></a>
+      <a class="res-card dt"><div class="res-icon">📞</div><div class="res-title" data-i18n="res_call_title">Appeler</div><div class="res-sub">+377 99 00 00 00</div></a>
       <a class="res-card dt"><div class="res-icon">✉️</div><div class="res-title">Email</div><div class="res-sub">vip@eclat-lounge.com</div></a>
     </div>
     <div class="form-wrap rv">
-      <h3 class="form-title">Formulaire de Réservation</h3>
-      <form onsubmit="demo(event)">
+      <h3 class="form-title" data-i18n="res_form_title">Formulaire de Réservation</h3>
+      <form onsubmit="demo(event)" id="resForm">
         <div class="form-row">
-          <div class="form-g"><label>Nom complet</label><input type="text" placeholder="Alexandre Dupont"/></div>
-          <div class="form-g"><label>Téléphone</label><input type="tel" placeholder="+33 6 00 00 00 00"/></div>
+          <div class="form-g"><label data-i18n="form_name">Nom complet</label><input type="text" data-i18n-ph="form_name_ph" placeholder="Alexandre Dupont"/></div>
+          <div class="form-g"><label data-i18n="form_phone">Téléphone</label><input type="tel" data-i18n-ph="form_phone_ph" placeholder="+33 6 00 00 00 00"/></div>
         </div>
         <div class="form-row">
-          <div class="form-g"><label>Date souhaitée</label><input type="date"/></div>
-          <div class="form-g"><label>Nombre de personnes</label>
-            <select><option>2 personnes</option><option>3-4 personnes</option><option>5-6 personnes</option><option>7-10 personnes</option><option>Événement privé (10+)</option></select>
+          <div class="form-g"><label data-i18n="form_date">Date souhaitée</label><input type="date"/></div>
+          <div class="form-g"><label data-i18n="form_guests">Nombre de personnes</label>
+            <select id="guestSelect"></select>
           </div>
         </div>
-        <div class="form-g" style="margin-bottom:1rem"><label>Message (optionnel)</label><textarea placeholder="Occasion spéciale, demandes particulières…" rows="3"></textarea></div>
-        <button type="submit" class="btn btn-dark btn--full">Envoyer la demande de réservation</button>
+        <div class="form-g" style="margin-bottom:1rem"><label data-i18n="form_message">Message (optionnel)</label><textarea data-i18n-ph="form_message_ph" placeholder="Occasion spéciale, demandes particulières…" rows="3"></textarea></div>
+        <button type="submit" class="btn btn-dark btn--full" data-i18n="form_submit">Envoyer la demande de réservation</button>
       </form>
     </div>
   </div>
@@ -553,9 +591,9 @@ ul{list-style:none}
 <!-- ═══════════ FOOD MENU ═══════════ -->
 <section class="section section--dark" id="menus">
   <div class="container">
-    <div class="section-label rv">Gastronomie</div>
-    <h2 class="section-title rv">Notre Carte</h2>
-    <p class="section-desc rv">Une cuisine d'auteur aux influences méditerranéennes et asiatiques.</p>
+    <div class="section-label rv" data-i18n="food_label">Gastronomie</div>
+    <h2 class="section-title rv" data-i18n="food_title">Notre Carte</h2>
+    <p class="section-desc rv" data-i18n="food_desc">Une cuisine d'auteur aux influences méditerranéennes et asiatiques.</p>
     <div class="acc rv" id="foodAcc"></div>
   </div>
 </section>
@@ -563,9 +601,9 @@ ul{list-style:none}
 <!-- ═══════════ DRINKS ═══════════ -->
 <section class="section" id="drinks">
   <div class="container">
-    <div class="section-label rv">Bar &amp; Cave</div>
-    <h2 class="section-title rv">Carte des Boissons</h2>
-    <p class="section-desc rv">Une sélection de champagnes, cocktails signature et spiritueux d'exception.</p>
+    <div class="section-label rv" data-i18n="drinks_label">Bar &amp; Cave</div>
+    <h2 class="section-title rv" data-i18n="drinks_title">Carte des Boissons</h2>
+    <p class="section-desc rv" data-i18n="drinks_desc">Une sélection de champagnes, cocktails signature et spiritueux d'exception.</p>
     <div class="acc rv" id="drinkAcc"></div>
   </div>
 </section>
@@ -573,9 +611,9 @@ ul{list-style:none}
 <!-- ═══════════ EVENTS ═══════════ -->
 <section class="section section--dark" id="events">
   <div class="container">
-    <div class="section-label rv">Agenda</div>
-    <h2 class="section-title rv">Prochains Événements</h2>
-    <p class="section-desc rv">Des soirées d'exception, réservées à une clientèle d'élite.</p>
+    <div class="section-label rv" data-i18n="events_label">Agenda</div>
+    <h2 class="section-title rv" data-i18n="events_title">Prochains Événements</h2>
+    <p class="section-desc rv" data-i18n="events_desc">Des soirées d'exception, réservées à une clientèle d'élite.</p>
     <div class="ev-grid" id="evGrid"></div>
   </div>
 </section>
@@ -584,15 +622,15 @@ ul{list-style:none}
 <section class="section nfc-s" id="nfc">
   <div class="nfc-glow"></div>
   <div class="container">
-    <div class="section-label rv" style="color:var(--gold-l)">Technologie</div>
-    <h2 class="section-title rv">The Lumière Experience</h2>
-    <p class="section-desc rv">Chaque bouteille est une œuvre d'art unique — un Dom Pérignon recyclé transformé en lampe de luxe. À l'intérieur, une puce NFC connecte votre monde à une expérience digitale immersive.</p>
+    <div class="section-label rv" style="color:var(--gold-l)" data-i18n="nfc_label">Technologie</div>
+    <h2 class="section-title rv" data-i18n="nfc_title">The Lumière Experience</h2>
+    <p class="section-desc rv" data-i18n="nfc_desc">Chaque bouteille est une œuvre d'art unique — un Dom Pérignon recyclé transformé en lampe de luxe. À l'intérieur, une puce NFC connecte votre monde à une expérience digitale immersive.</p>
     <div class="nfc-vis rv">
       <div class="nfc-phone">
         <div class="nfc-wave nfc-wave-1"></div>
         <div class="nfc-wave nfc-wave-2"></div>
         <div class="nfc-wave nfc-wave-3"></div>
-        <div class="nfc-screen"><div class="nfc-pi">📲</div><div class="nfc-pt">Experience Unlocked</div></div>
+        <div class="nfc-screen"><div class="nfc-pi">📲</div><div class="nfc-pt" data-i18n="nfc_unlocked">Experience Unlocked</div></div>
       </div>
       <div class="nfc-conn">
         <div class="nfc-line"></div>
@@ -609,7 +647,7 @@ ul{list-style:none}
 <footer class="footer">
   <div class="footer-top">
     <div class="footer-logo">ÉCLAT</div>
-    <p class="footer-tl">Crafted with prestige. Experienced with a tap.</p>
+    <p class="footer-tl" data-i18n="footer_tl">Crafted with prestige. Experienced with a tap.</p>
     <div class="footer-soc">
       <a class="footer-sb dt"><span>📸</span><span>Instagram</span></a>
       <a class="footer-sb dt"><span>🔵</span><span>Facebook</span></a>
@@ -617,15 +655,15 @@ ul{list-style:none}
     </div>
   </div>
   <div class="footer-links">
-    <a href="#about" class="footer-link dt">L'Établissement</a>
-    <a href="#menus" class="footer-link dt">Menus</a>
-    <a href="#events" class="footer-link dt">Événements</a>
-    <a href="#reservation" class="footer-link dt">Réservation</a>
-    <a href="#nfc" class="footer-link dt">Expérience NFC</a>
+    <a href="#about" class="footer-link dt" data-i18n="nav_venue">L'Établissement</a>
+    <a href="#menus" class="footer-link dt" data-i18n="nav_menus">Menus</a>
+    <a href="#events" class="footer-link dt" data-i18n="nav_events">Événements</a>
+    <a href="#reservation" class="footer-link dt" data-i18n="nav_reservation">Réservation</a>
+    <a href="#nfc" class="footer-link dt" data-i18n="footer_nfc">Expérience NFC</a>
   </div>
   <div class="footer-bot">
-    <p class="footer-cr">© 2026 Éclat Lounge. All rights reserved.</p>
-    <p class="footer-pw">Powered by Lumière NFC Experience</p>
+    <p class="footer-cr" data-i18n="footer_cr">© 2026 Éclat Lounge. All rights reserved.</p>
+    <p class="footer-pw" data-i18n="footer_pw">Powered by Lumière NFC Experience</p>
   </div>
 </footer>
 
@@ -721,6 +759,352 @@ const C = {
 };
 
 /* =====================================================
+   TRANSLATIONS
+   ===================================================== */
+const LANGS = {
+  fr:{flag:'🇫🇷',code:'FR',name:'Français'},
+  en:{flag:'🇬🇧',code:'EN',name:'English'},
+  de:{flag:'🇩🇪',code:'DE',name:'Deutsch'},
+  es:{flag:'🇪🇸',code:'ES',name:'Español'},
+  it:{flag:'🇮🇹',code:'IT',name:'Italiano'},
+};
+
+const T = {
+  fr:{
+    nav_venue:"L'Établissement", nav_menus:"Menus", nav_drinks:"Boissons",
+    nav_events:"Événements", nav_reservation:"Réservation",
+    hero_eyebrow:"Tap Into The Experience", hero_sub:"Découvrez l'expérience",
+    hero_cta_primary:"Réserver une table VIP", hero_cta_secondary:"Découvrir", scroll:"Scroll",
+    about_label:"L'Établissement",
+    about_desc:"Un monde intime où gastronomie, art et musique convergent. Au cœur de la Riviera, Éclat redéfinit la nuit de luxe avec des expériences sur mesure pour une clientèle d'exception.",
+    about_address_lbl:"Adresse", about_hours_lbl:"Horaires",
+    about_call:"Appeler", about_directions:"Itinéraire",
+    hours_mon_thu:"Lundi – Jeudi", hours_fri_sat:"Vendredi – Samedi", hours_sun:"Dimanche",
+    ig_label:"Réseaux Sociaux", ig_title:"Instagram",
+    ig_sub:"Suivez-nous pour les dernières actualités", ig_follow:"Suivre", ig_see_all:"Voir tous les posts →",
+    rev_label:"Avis Clients", rev_title:"Ce que disent nos hôtes",
+    rev_count:"312 avis Google", rev_leave:"Laisser un avis",
+    sp_label:"Ambiance Sonore", sp_title:"Nos Playlists",
+    sp_desc:"L'atmosphère parfaite pour chaque moment de votre soirée.",
+    dj_label:"Cette Semaine", dj_title:"DJ Lineup", dj_badge:"⭐ Resident DJ", dj_resident:"Resident",
+    res_label:"Réservation Exclusive", res_title:"Réservez Votre Table VIP",
+    res_desc:"Notre équipe conciergerie est disponible 7j/7 pour créer votre soirée parfaite.",
+    res_wa_sub:"Réponse rapide", res_call_title:"Appeler",
+    res_form_title:"Formulaire de Réservation",
+    form_name:"Nom complet", form_name_ph:"Alexandre Dupont",
+    form_phone:"Téléphone", form_phone_ph:"+33 6 00 00 00 00",
+    form_date:"Date souhaitée", form_guests:"Nombre de personnes",
+    form_guests_opts:["2 personnes","3-4 personnes","5-6 personnes","7-10 personnes","Événement privé (10+)"],
+    form_message:"Message (optionnel)", form_message_ph:"Occasion spéciale, demandes particulières…",
+    form_submit:"Envoyer la demande de réservation",
+    food_label:"Gastronomie", food_title:"Notre Carte",
+    food_desc:"Une cuisine d'auteur aux influences méditerranéennes et asiatiques.",
+    drinks_label:"Bar & Cave", drinks_title:"Carte des Boissons",
+    drinks_desc:"Une sélection de champagnes, cocktails signature et spiritueux d'exception.",
+    events_label:"Agenda", events_title:"Prochains Événements",
+    events_desc:"Des soirées d'exception, réservées à une clientèle d'élite.",
+    cd_days:"Jours", cd_hours:"Heures", cd_min:"Min", cd_sec:"Sec",
+    acc_items:"articles",
+    nfc_label:"Technologie", nfc_title:"The Lumière Experience",
+    nfc_desc:"Chaque bouteille est une œuvre d'art unique — un Dom Pérignon recyclé transformé en lampe de luxe. À l'intérieur, une puce NFC connecte votre monde à une expérience digitale immersive.",
+    nfc_unlocked:"Experience Unlocked",
+    nfc_feats:[
+      {icon:"📲",title:"Accès Instantané",text:"Un tap. Aucune app. Votre expérience s'ouvre instantanément."},
+      {icon:"🍾",title:"Bouteilles Uniques",text:"Chaque lampe est une pièce artisanale issue d'une bouteille Dom Pérignon authentique."},
+      {icon:"✨",title:"Mise à Jour Live",text:"Menus, événements, playlists mis à jour en temps réel."},
+      {icon:"💎",title:"Design Sur Mesure",text:"Chaque page est conçue sur mesure pour l'identité de l'établissement."},
+    ],
+    footer_tl:"Crafted with prestige. Experienced with a tap.",
+    footer_nfc:"Expérience NFC", footer_cr:"© 2026 Éclat Lounge. Tous droits réservés.",
+    footer_pw:"Propulsé par Lumière NFC Experience",
+    demo_title:"Fonctionnalité Active",
+    demo_text:"Cette page est une démonstration. Tous les boutons et liens seront entièrement configurés pour votre établissement.",
+    demo_close:"Fermer",
+  },
+  en:{
+    nav_venue:"The Venue", nav_menus:"Menus", nav_drinks:"Drinks",
+    nav_events:"Events", nav_reservation:"Reservation",
+    hero_eyebrow:"Tap Into The Experience", hero_sub:"Discover the experience",
+    hero_cta_primary:"Reserve a VIP Table", hero_cta_secondary:"Discover", scroll:"Scroll",
+    about_label:"The Venue",
+    about_desc:"An intimate world where gastronomy, art, and music converge. Nestled in the heart of the Riviera, Éclat redefines luxury nightlife with curated experiences for the most discerning guests.",
+    about_address_lbl:"Address", about_hours_lbl:"Opening Hours",
+    about_call:"Call", about_directions:"Directions",
+    hours_mon_thu:"Monday – Thursday", hours_fri_sat:"Friday – Saturday", hours_sun:"Sunday",
+    ig_label:"Social Media", ig_title:"Instagram",
+    ig_sub:"Follow us for the latest news", ig_follow:"Follow", ig_see_all:"See all posts →",
+    rev_label:"Guest Reviews", rev_title:"What our guests say",
+    rev_count:"312 Google reviews", rev_leave:"Leave a review",
+    sp_label:"Music & Atmosphere", sp_title:"Our Playlists",
+    sp_desc:"The perfect atmosphere for every moment of your evening.",
+    dj_label:"This Week", dj_title:"DJ Lineup", dj_badge:"⭐ Resident DJ", dj_resident:"Resident",
+    res_label:"Exclusive Reservations", res_title:"Reserve Your VIP Table",
+    res_desc:"Our concierge team is available 7 days a week to create your perfect evening.",
+    res_wa_sub:"Quick response", res_call_title:"Call",
+    res_form_title:"Reservation Form",
+    form_name:"Full name", form_name_ph:"Alexandre Dupont",
+    form_phone:"Phone", form_phone_ph:"+33 6 00 00 00 00",
+    form_date:"Preferred date", form_guests:"Number of guests",
+    form_guests_opts:["2 guests","3-4 guests","5-6 guests","7-10 guests","Private event (10+)"],
+    form_message:"Message (optional)", form_message_ph:"Special occasion, specific requests…",
+    form_submit:"Send reservation request",
+    food_label:"Gastronomy", food_title:"Our Menu",
+    food_desc:"An author's cuisine with Mediterranean and Asian influences.",
+    drinks_label:"Bar & Cellar", drinks_title:"Drinks Menu",
+    drinks_desc:"A selection of champagnes, signature cocktails and exceptional spirits.",
+    events_label:"Agenda", events_title:"Upcoming Events",
+    events_desc:"Exceptional evenings, reserved for an elite clientele.",
+    cd_days:"Days", cd_hours:"Hours", cd_min:"Min", cd_sec:"Sec",
+    acc_items:"items",
+    nfc_label:"Technology", nfc_title:"The Lumière Experience",
+    nfc_desc:"Each bottle is a unique work of art — a recycled Dom Pérignon transformed into a luxury lamp. Inside, an NFC chip connects your world to an immersive digital experience.",
+    nfc_unlocked:"Experience Unlocked",
+    nfc_feats:[
+      {icon:"📲",title:"Instant Access",text:"One tap. No app needed. Your full experience opens instantly."},
+      {icon:"🍾",title:"Unique Bottles",text:"Each lamp is a handcrafted piece made from an authentic Dom Pérignon bottle."},
+      {icon:"✨",title:"Live Updates",text:"Menus, events, and playlists updated in real time — always current."},
+      {icon:"💎",title:"Bespoke Design",text:"Every page is custom-designed for the establishment's identity and clientele."},
+    ],
+    footer_tl:"Crafted with prestige. Experienced with a tap.",
+    footer_nfc:"NFC Experience", footer_cr:"© 2026 Éclat Lounge. All rights reserved.",
+    footer_pw:"Powered by Lumière NFC Experience",
+    demo_title:"Feature Active",
+    demo_text:"This page is a demonstration. All buttons and links will be fully configured for your establishment.",
+    demo_close:"Close",
+  },
+  de:{
+    nav_venue:"Das Lokal", nav_menus:"Speisekarte", nav_drinks:"Getränke",
+    nav_events:"Veranstaltungen", nav_reservation:"Reservierung",
+    hero_eyebrow:"Erleben Sie die Welt von Éclat", hero_sub:"Entdecken Sie das Erlebnis",
+    hero_cta_primary:"VIP-Tisch reservieren", hero_cta_secondary:"Entdecken", scroll:"Scrollen",
+    about_label:"Das Lokal",
+    about_desc:"Eine intime Welt, in der Gastronomie, Kunst und Musik zusammenkommen. Im Herzen der Riviera definiert Éclat das Luxusnachtleben mit maßgeschneiderten Erlebnissen neu.",
+    about_address_lbl:"Adresse", about_hours_lbl:"Öffnungszeiten",
+    about_call:"Anrufen", about_directions:"Wegbeschreibung",
+    hours_mon_thu:"Montag – Donnerstag", hours_fri_sat:"Freitag – Samstag", hours_sun:"Sonntag",
+    ig_label:"Soziale Medien", ig_title:"Instagram",
+    ig_sub:"Folgen Sie uns für die neuesten Nachrichten", ig_follow:"Folgen", ig_see_all:"Alle Beiträge ansehen →",
+    rev_label:"Gästebewertungen", rev_title:"Was unsere Gäste sagen",
+    rev_count:"312 Google-Bewertungen", rev_leave:"Bewertung abgeben",
+    sp_label:"Musik & Atmosphäre", sp_title:"Unsere Playlists",
+    sp_desc:"Die perfekte Atmosphäre für jeden Moment Ihres Abends.",
+    dj_label:"Diese Woche", dj_title:"DJ Lineup", dj_badge:"⭐ Resident DJ", dj_resident:"Resident",
+    res_label:"Exklusive Reservierung", res_title:"Ihren VIP-Tisch reservieren",
+    res_desc:"Unser Concierge-Team steht 7 Tage die Woche zur Verfügung, um Ihren perfekten Abend zu gestalten.",
+    res_wa_sub:"Schnelle Antwort", res_call_title:"Anrufen",
+    res_form_title:"Reservierungsformular",
+    form_name:"Vollständiger Name", form_name_ph:"Alexander Müller",
+    form_phone:"Telefon", form_phone_ph:"+49 170 000 0000",
+    form_date:"Gewünschtes Datum", form_guests:"Anzahl der Gäste",
+    form_guests_opts:["2 Gäste","3-4 Gäste","5-6 Gäste","7-10 Gäste","Privatveranstaltung (10+)"],
+    form_message:"Nachricht (optional)", form_message_ph:"Besonderer Anlass, spezielle Wünsche…",
+    form_submit:"Reservierungsanfrage senden",
+    food_label:"Gastronomie", food_title:"Unsere Speisekarte",
+    food_desc:"Autorenküche mit mediterranen und asiatischen Einflüssen.",
+    drinks_label:"Bar & Keller", drinks_title:"Getränkekarte",
+    drinks_desc:"Eine Auswahl an Champagnern, Signature-Cocktails und außergewöhnlichen Spirituosen.",
+    events_label:"Veranstaltungen", events_title:"Bevorstehende Events",
+    events_desc:"Außergewöhnliche Abende, reserviert für eine Elite-Kundschaft.",
+    cd_days:"Tage", cd_hours:"Stunden", cd_min:"Min", cd_sec:"Sek",
+    acc_items:"Artikel",
+    nfc_label:"Technologie", nfc_title:"The Lumière Experience",
+    nfc_desc:"Jede Flasche ist ein einzigartiges Kunstwerk — ein recycelter Dom Pérignon, der zur Luxuslampe wurde. Im Inneren verbindet ein NFC-Chip Ihre Welt mit einem immersiven digitalen Erlebnis.",
+    nfc_unlocked:"Erlebnis freigeschaltet",
+    nfc_feats:[
+      {icon:"📲",title:"Sofortzugang",text:"Ein Tap. Keine App. Ihr komplettes Erlebnis öffnet sich sofort."},
+      {icon:"🍾",title:"Einzigartige Flaschen",text:"Jede Lampe ist ein handgefertigtes Stück aus einer echten Dom Pérignon Flasche."},
+      {icon:"✨",title:"Live-Updates",text:"Menüs, Events und Playlists werden in Echtzeit aktualisiert."},
+      {icon:"💎",title:"Maßgeschneidertes Design",text:"Jede Seite wird individuell für die Identität des Etablissements gestaltet."},
+    ],
+    footer_tl:"Mit Prestige gestaltet. Mit einem Tap erlebt.",
+    footer_nfc:"NFC-Erlebnis", footer_cr:"© 2026 Éclat Lounge. Alle Rechte vorbehalten.",
+    footer_pw:"Powered by Lumière NFC Experience",
+    demo_title:"Funktion aktiv",
+    demo_text:"Diese Seite ist eine Demonstration. Alle Schaltflächen und Links werden für Ihr Unternehmen vollständig konfiguriert.",
+    demo_close:"Schließen",
+  },
+  es:{
+    nav_venue:"El Local", nav_menus:"Menús", nav_drinks:"Bebidas",
+    nav_events:"Eventos", nav_reservation:"Reservación",
+    hero_eyebrow:"Entra en la experiencia", hero_sub:"Descubre la experiencia",
+    hero_cta_primary:"Reservar mesa VIP", hero_cta_secondary:"Descubrir", scroll:"Scroll",
+    about_label:"El Local",
+    about_desc:"Un mundo íntimo donde la gastronomía, el arte y la música convergen. En el corazón de la Riviera, Éclat redefine la vida nocturna de lujo con experiencias exclusivas.",
+    about_address_lbl:"Dirección", about_hours_lbl:"Horarios",
+    about_call:"Llamar", about_directions:"Cómo llegar",
+    hours_mon_thu:"Lunes – Jueves", hours_fri_sat:"Viernes – Sábado", hours_sun:"Domingo",
+    ig_label:"Redes Sociales", ig_title:"Instagram",
+    ig_sub:"Síguenos para las últimas novedades", ig_follow:"Seguir", ig_see_all:"Ver todas las publicaciones →",
+    rev_label:"Opiniones", rev_title:"Lo que dicen nuestros huéspedes",
+    rev_count:"312 reseñas en Google", rev_leave:"Dejar una reseña",
+    sp_label:"Ambiente Musical", sp_title:"Nuestras Playlists",
+    sp_desc:"El ambiente perfecto para cada momento de su velada.",
+    dj_label:"Esta Semana", dj_title:"DJ Lineup", dj_badge:"⭐ DJ Residente", dj_resident:"Residente",
+    res_label:"Reserva Exclusiva", res_title:"Reserve su Mesa VIP",
+    res_desc:"Nuestro equipo de conserjería está disponible 7 días a la semana para crear su velada perfecta.",
+    res_wa_sub:"Respuesta rápida", res_call_title:"Llamar",
+    res_form_title:"Formulario de Reserva",
+    form_name:"Nombre completo", form_name_ph:"Alejandro García",
+    form_phone:"Teléfono", form_phone_ph:"+34 600 000 000",
+    form_date:"Fecha deseada", form_guests:"Número de personas",
+    form_guests_opts:["2 personas","3-4 personas","5-6 personas","7-10 personas","Evento privado (10+)"],
+    form_message:"Mensaje (opcional)", form_message_ph:"Ocasión especial, peticiones especiales…",
+    form_submit:"Enviar solicitud de reserva",
+    food_label:"Gastronomía", food_title:"Nuestra Carta",
+    food_desc:"Una cocina de autor con influencias mediterráneas y asiáticas.",
+    drinks_label:"Bar & Bodega", drinks_title:"Carta de Bebidas",
+    drinks_desc:"Una selección de champagnes, cócteles de autor y licores de excepción.",
+    events_label:"Agenda", events_title:"Próximos Eventos",
+    events_desc:"Veladas excepcionales, reservadas para una clientela de élite.",
+    cd_days:"Días", cd_hours:"Horas", cd_min:"Min", cd_sec:"Seg",
+    acc_items:"artículos",
+    nfc_label:"Tecnología", nfc_title:"The Lumière Experience",
+    nfc_desc:"Cada botella es una obra de arte única — un Dom Pérignon reciclado transformado en lámpara de lujo. En su interior, un chip NFC conecta su mundo con una experiencia digital inmersiva.",
+    nfc_unlocked:"Experiencia Desbloqueada",
+    nfc_feats:[
+      {icon:"📲",title:"Acceso Instantáneo",text:"Un toque. Sin app. Tu experiencia se abre al instante."},
+      {icon:"🍾",title:"Botellas Únicas",text:"Cada lámpara es una pieza artesanal de una auténtica botella Dom Pérignon."},
+      {icon:"✨",title:"Actualizaciones Live",text:"Menús, eventos y playlists actualizados en tiempo real."},
+      {icon:"💎",title:"Diseño a Medida",text:"Cada página está diseñada a medida para la identidad del establecimiento."},
+    ],
+    footer_tl:"Creado con prestigio. Experimentado con un toque.",
+    footer_nfc:"Experiencia NFC", footer_cr:"© 2026 Éclat Lounge. Todos los derechos reservados.",
+    footer_pw:"Impulsado por Lumière NFC Experience",
+    demo_title:"Función Activa",
+    demo_text:"Esta página es una demostración. Todos los botones y enlaces estarán completamente configurados para su establecimiento.",
+    demo_close:"Cerrar",
+  },
+  it:{
+    nav_venue:"Il Locale", nav_menus:"Menu", nav_drinks:"Bevande",
+    nav_events:"Eventi", nav_reservation:"Prenotazione",
+    hero_eyebrow:"Vivi l'esperienza", hero_sub:"Scopri l'esperienza",
+    hero_cta_primary:"Prenota un tavolo VIP", hero_cta_secondary:"Scoprire", scroll:"Scorri",
+    about_label:"Il Locale",
+    about_desc:"Un mondo intimo dove gastronomia, arte e musica convergono. Nel cuore della Riviera, Éclat ridefinisce la vita notturna di lusso con esperienze su misura per una clientela d'eccezione.",
+    about_address_lbl:"Indirizzo", about_hours_lbl:"Orari",
+    about_call:"Chiama", about_directions:"Indicazioni",
+    hours_mon_thu:"Lunedì – Giovedì", hours_fri_sat:"Venerdì – Sabato", hours_sun:"Domenica",
+    ig_label:"Social Media", ig_title:"Instagram",
+    ig_sub:"Seguici per le ultime novità", ig_follow:"Segui", ig_see_all:"Vedi tutti i post →",
+    rev_label:"Recensioni Ospiti", rev_title:"Cosa dicono i nostri ospiti",
+    rev_count:"312 recensioni Google", rev_leave:"Lascia una recensione",
+    sp_label:"Atmosfera Sonora", sp_title:"Le Nostre Playlist",
+    sp_desc:"L'atmosfera perfetta per ogni momento della vostra serata.",
+    dj_label:"Questa Settimana", dj_title:"DJ Lineup", dj_badge:"⭐ DJ Residente", dj_resident:"Residente",
+    res_label:"Prenotazione Esclusiva", res_title:"Prenota il Tuo Tavolo VIP",
+    res_desc:"Il nostro team concierge è disponibile 7 giorni su 7 per creare la tua serata perfetta.",
+    res_wa_sub:"Risposta rapida", res_call_title:"Chiama",
+    res_form_title:"Modulo di Prenotazione",
+    form_name:"Nome completo", form_name_ph:"Marco Rossi",
+    form_phone:"Telefono", form_phone_ph:"+39 340 000 0000",
+    form_date:"Data desiderata", form_guests:"Numero di persone",
+    form_guests_opts:["2 persone","3-4 persone","5-6 persone","7-10 persone","Evento privato (10+)"],
+    form_message:"Messaggio (opzionale)", form_message_ph:"Occasione speciale, richieste particolari…",
+    form_submit:"Invia richiesta di prenotazione",
+    food_label:"Gastronomia", food_title:"La Nostra Carta",
+    food_desc:"Una cucina d'autore con influenze mediterranee e asiatiche.",
+    drinks_label:"Bar & Cantina", drinks_title:"Carta delle Bevande",
+    drinks_desc:"Una selezione di champagne, cocktail signature e distillati d'eccezione.",
+    events_label:"Agenda", events_title:"Prossimi Eventi",
+    events_desc:"Serate d'eccezione, riservate a una clientela d'élite.",
+    cd_days:"Giorni", cd_hours:"Ore", cd_min:"Min", cd_sec:"Sec",
+    acc_items:"articoli",
+    nfc_label:"Tecnologia", nfc_title:"The Lumière Experience",
+    nfc_desc:"Ogni bottiglia è un'opera d'arte unica — un Dom Pérignon riciclato trasformato in lampada di lusso. All'interno, un chip NFC connette il tuo mondo a un'esperienza digitale immersiva.",
+    nfc_unlocked:"Esperienza Sbloccata",
+    nfc_feats:[
+      {icon:"📲",title:"Accesso Istantaneo",text:"Un tap. Nessuna app. La tua esperienza si apre all'istante."},
+      {icon:"🍾",title:"Bottiglie Uniche",text:"Ogni lampada è un pezzo artigianale realizzato da un'autentica bottiglia Dom Pérignon."},
+      {icon:"✨",title:"Aggiornamenti Live",text:"Menu, eventi e playlist aggiornati in tempo reale — sempre attuali."},
+      {icon:"💎",title:"Design Su Misura",text:"Ogni pagina è progettata su misura per l'identità dell'esercizio."},
+    ],
+    footer_tl:"Creato con prestigio. Vissuto con un tap.",
+    footer_nfc:"Esperienza NFC", footer_cr:"© 2026 Éclat Lounge. Tutti i diritti riservati.",
+    footer_pw:"Powered by Lumière NFC Experience",
+    demo_title:"Funzione Attiva",
+    demo_text:"Questa pagina è una dimostrazione. Tutti i pulsanti e i link saranno completamente configurati per il vostro esercizio.",
+    demo_close:"Chiudi",
+  },
+};
+
+let currentLang = localStorage.getItem('lang') || 'fr';
+
+function applyLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  const t = T[lang];
+  document.documentElement.lang = lang;
+
+  // Update all [data-i18n] text elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+
+  // Update placeholders
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.dataset.i18nPh;
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  // Rebuild guest select options
+  const sel = document.getElementById('guestSelect');
+  if (sel) sel.innerHTML = t.form_guests_opts.map(o=>`<option>${o}</option>`).join('');
+
+  // Rebuild NFC features
+  const nfcEl = document.getElementById('nfcFeats');
+  if (nfcEl) nfcEl.innerHTML = t.nfc_feats.map(f=>
+    `<div class="nfc-feat rv in"><div class="nfc-fi">${f.icon}</div><div class="nfc-ft">${f.title}</div><p class="nfc-fd">${f.text}</p></div>`
+  ).join('');
+
+  // Rebuild countdown labels (re-render events section)
+  C.events.forEach(renderCD);
+
+  // Rebuild accordion item counts
+  document.querySelectorAll('.acc-ct').forEach(el => {
+    const n = el.textContent.match(/\d+/)?.[0];
+    if (n) el.textContent = `${n} ${t.acc_items}`;
+  });
+
+  // Update lang button display
+  const L = LANGS[lang];
+  const flagEl = document.getElementById('langFlag');
+  const codeEl = document.getElementById('langCode');
+  if (flagEl) flagEl.textContent = L.flag;
+  if (codeEl) codeEl.textContent = L.code;
+
+  // Update active state in dropdown
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.classList.toggle('active', opt.dataset.lang === lang);
+  });
+}
+
+function initLangSwitcher() {
+  const sw   = document.getElementById('langSw');
+  const btn  = document.getElementById('langBtn');
+  const drop = document.getElementById('langDropdown');
+
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    sw.classList.toggle('open');
+  });
+
+  drop.addEventListener('click', e => {
+    const opt = e.target.closest('.lang-option');
+    if (!opt) return;
+    sw.classList.remove('open');
+    applyLang(opt.dataset.lang);
+  });
+
+  document.addEventListener('click', e => {
+    if (!sw.contains(e.target)) sw.classList.remove('open');
+  });
+
+  // Apply saved/default language on load
+  applyLang(currentLang);
+}
+
+/* =====================================================
    RENDER
    ===================================================== */
 function showDemo(e){if(e)e.preventDefault();document.getElementById('demoOverlay').classList.add('active')}
@@ -789,7 +1173,7 @@ function buildAcc(cats,id){
   document.getElementById(id).innerHTML=cats.map((c,ci)=>`
     <div class="acc-cat${ci===0?' open':''}">
       <div class="acc-hd">
-        <div class="acc-left"><span class="acc-ico">${c.icon}</span><div><div class="acc-name">${c.cat}</div><div class="acc-ct">${c.items.length} articles</div></div></div>
+        <div class="acc-left"><span class="acc-ico">${c.icon}</span><div><div class="acc-name">${c.cat}</div><div class="acc-ct">${c.items.length} ${T[currentLang].acc_items}</div></div></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-items">${c.items.map(it=>`
@@ -821,7 +1205,7 @@ document.getElementById('evGrid').innerHTML=C.events.map((ev,i)=>`
   </div>`).join('');
 
 function getLeft(ds){const d=Math.max(0,new Date(ds)-Date.now());return{d:String(Math.floor(d/86400000)).padStart(2,'0'),h:String(Math.floor(d%86400000/3600000)).padStart(2,'0'),m:String(Math.floor(d%3600000/60000)).padStart(2,'0'),s:String(Math.floor(d%60000/1000)).padStart(2,'0')}}
-function renderCD(ev,i){const w=document.getElementById('cd'+i);if(!w)return;const{d,h,m,s}=getLeft(ev.date);w.innerHTML=`<div class="cd-u"><span class="cd-n">${d}</span><span class="cd-l">Jours</span></div><div class="cd-u"><span class="cd-n">${h}</span><span class="cd-l">Heures</span></div><div class="cd-u"><span class="cd-n">${m}</span><span class="cd-l">Min</span></div><div class="cd-u"><span class="cd-n">${s}</span><span class="cd-l">Sec</span></div>`}
+function renderCD(ev,i){const w=document.getElementById('cd'+i);if(!w)return;const{d,h,m,s}=getLeft(ev.date);const t=T[currentLang];w.innerHTML=`<div class="cd-u"><span class="cd-n">${d}</span><span class="cd-l">${t.cd_days}</span></div><div class="cd-u"><span class="cd-n">${h}</span><span class="cd-l">${t.cd_hours}</span></div><div class="cd-u"><span class="cd-n">${m}</span><span class="cd-l">${t.cd_min}</span></div><div class="cd-u"><span class="cd-n">${s}</span><span class="cd-l">${t.cd_sec}</span></div>`}
 C.events.forEach(renderCD);
 setInterval(()=>C.events.forEach(renderCD),1000);
 
@@ -869,6 +1253,11 @@ new MutationObserver(()=>document.querySelectorAll('.rv:not(.in)').forEach(el=>{
   window.addEventListener('resize',()=>{resize();mk()},{passive:true});
   resize();mk();draw();
 })();
+
+/* =====================================================
+   LANGUAGE SWITCHER INIT
+   ===================================================== */
+initLangSwitcher();
 
 /* =====================================================
    LOADER
